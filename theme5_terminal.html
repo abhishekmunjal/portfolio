@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>abhishek@portfolio:~$ _</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0e14;--bg2:#151a21;--surface:#1a1f29;
+  --green:#00ff41;--green2:#39ff14;--cyan:#00ffff;--blue:#4da6ff;
+  --yellow:#ffeb3b;--red:#ff5555;--orange:#ff9800;--purple:#c792ea;
+  --text:#b3b9c5;--text2:#6b7280;--white:#e6e8eb;
+  --mono:'JetBrains Mono',monospace;
+}
+html,body{height:100%;overflow:hidden;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--mono);font-size:15px;
+  display:flex;flex-direction:column;
+}
+
+/* Terminal Window */
+.terminal-window{
+  display:flex;flex-direction:column;
+  height:100%;background:var(--bg);
+  position:relative;
+}
+.terminal-header{
+  background:var(--surface);
+  padding:0.5rem 1rem;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  flex-shrink:0;
+}
+.window-controls{display:flex;gap:0.5rem;}
+.window-btn{width:12px;height:12px;border-radius:50%;}
+.btn-red{background:#ff5f56;}
+.btn-yellow{background:#ffbd2e;}
+.btn-green{background:#27c93f;}
+.window-title{
+  font-size:0.8rem;color:var(--text2);
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+
+/* Terminal Content */
+.terminal-content{
+  flex:1;
+  overflow-y:auto;
+  padding:1.5rem;
+  display:flex;flex-direction:column;
+  scrollbar-width:thin;
+  scrollbar-color:var(--surface) var(--bg);
+}
+.terminal-content::-webkit-scrollbar{width:8px;}
+.terminal-content::-webkit-scrollbar-track{background:var(--bg);}
+.terminal-content::-webkit-scrollbar-thumb{background:var(--surface);border-radius:4px;}
+
+/* Boot Sequence */
+.boot-line{
+  font-size:0.85rem;
+  color:var(--text2);
+  margin:0.15rem 0;
+  opacity:0;
+  animation:fadeIn 0.3s forwards;
+}
+@keyframes fadeIn{to{opacity:1;}}
+
+/* Welcome ASCII Art */
+.ascii-art{
+  color:var(--green);
+  font-size:0.7rem;
+  line-height:1.2;
+  margin:1rem 0;
+  white-space:pre;
+  animation:glitch 3s infinite;
+}
+@keyframes glitch{
+  0%,100%{text-shadow:0 0 0;}
+  10%{text-shadow:1px 0 var(--cyan),-1px 0 var(--red);}
+  20%{text-shadow:0 0 0;}
+}
+
+/* Output Lines */
+.output{margin:0.5rem 0;}
+.output.success{color:var(--green);}
+.output.error{color:var(--red);}
+.output.info{color:var(--cyan);}
+.output.warning{color:var(--yellow);}
+
+.prompt{
+  display:flex;align-items:flex-start;gap:0.5rem;
+  margin:1rem 0 0.5rem;
+}
+.prompt-symbol{color:var(--green);flex-shrink:0;}
+.prompt-path{color:var(--blue);flex-shrink:0;}
+.prompt-input{
+  flex:1;background:none;border:none;
+  color:var(--white);font-family:var(--mono);font-size:15px;
+  outline:none;caret-color:var(--green);
+}
+
+.cursor-blink{
+  display:inline-block;
+  width:8px;height:1.2em;
+  background:var(--green);
+  margin-left:2px;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* Command Output Styles */
+.section-header{
+  color:var(--green);
+  font-weight:600;
+  margin:1rem 0 0.5rem;
+  border-bottom:1px solid var(--green);
+  padding-bottom:0.3rem;
+}
+.section-content{margin-left:1rem;}
+
+.experience-item{
+  margin:0.75rem 0;
+  padding:0.5rem;
+  background:rgba(255,255,255,0.02);
+  border-left:2px solid var(--cyan);
+  padding-left:1rem;
+}
+.exp-title{color:var(--yellow);font-weight:600;}
+.exp-company{color:var(--purple);font-size:0.9rem;}
+.exp-desc{color:var(--text);font-size:0.85rem;margin-top:0.3rem;line-height:1.6;}
+
+.project-item{
+  margin:0.75rem 0;
+  padding:0.5rem;
+  background:rgba(255,255,255,0.02);
+  border-left:2px solid var(--blue);
+  padding-left:1rem;
+}
+.project-name{color:var(--cyan);font-weight:600;}
+.project-link{color:var(--green);font-size:0.85rem;text-decoration:none;}
+.project-link:hover{text-decoration:underline;}
+.project-desc{color:var(--text);font-size:0.85rem;margin-top:0.3rem;line-height:1.6;}
+
+.skill-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:0.75rem;margin:0.5rem 0;
+}
+.skill-category{
+  background:rgba(255,255,255,0.03);
+  padding:0.75rem;
+  border:1px solid rgba(255,255,255,0.05);
+}
+.skill-cat-name{color:var(--orange);font-weight:600;margin-bottom:0.3rem;font-size:0.9rem;}
+.skill-list{list-style:none;padding:0;}
+.skill-list li{
+  color:var(--text);font-size:0.85rem;
+  padding:0.2rem 0;
+  padding-left:1rem;position:relative;
+}
+.skill-list li::before{
+  content:'▸';
+  position:absolute;left:0;color:var(--green);
+}
+
+.help-table{width:100%;border-collapse:collapse;margin:0.5rem 0;}
+.help-table td{padding:0.3rem 1rem 0.3rem 0;font-size:0.9rem;}
+.help-table td:first-child{color:var(--cyan);font-weight:600;min-width:150px;}
+.help-table td:last-child{color:var(--text2);}
+
+.tree-view{font-size:0.85rem;line-height:1.8;}
+.tree-item{color:var(--text);padding-left:1rem;position:relative;}
+.tree-item::before{content:'├── ';color:var(--text2);position:absolute;left:0;}
+.tree-item:last-child::before{content:'└── ';}
+.tree-file{color:var(--green);}
+.tree-dir{color:var(--blue);font-weight:600;}
+
+.loading{
+  display:inline-block;
+  animation:dots 1.5s steps(3,end) infinite;
+}
+@keyframes dots{
+  0%{content:'.';}
+  33%{content:'..';}
+  66%{content:'...';}
+}
+
+.matrix-rain{
+  position:fixed;inset:0;
+  pointer-events:none;
+  opacity:0.03;
+  z-index:0;
+}
+.matrix-rain canvas{display:block;width:100%;height:100%;}
+
+.suggestion{
+  color:var(--text2);
+  font-style:italic;
+  font-size:0.85rem;
+  margin-top:0.3rem;
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .terminal-content{padding:1rem;font-size:14px;}
+  .skill-grid{grid-template-columns:1fr;}
+}
+
+/* Command not found */
+.not-found{
+  color:var(--red);
+  font-size:0.9rem;
+}
+</style>
+</head>
+<body>
+
+<div class="matrix-rain" id="matrix"></div>
+
+<div class="terminal-window">
+  <div class="terminal-header">
+    <div class="window-controls">
+      <div class="window-btn btn-red"></div>
+      <div class="window-btn btn-yellow"></div>
+      <div class="window-btn btn-green"></div>
+    </div>
+    <div class="window-title">abhishek@portfolio — -bash — 80x24</div>
+  </div>
+  
+  <div class="terminal-content" id="output">
+    <!-- Boot sequence and content will be injected here -->
+  </div>
+</div>
+
+<script>
+const output = document.getElementById('output');
+let commandHistory = [];
+let historyIndex = -1;
+
+const commands = {
+  help: `<div class="section-header">AVAILABLE COMMANDS</div>
+<table class="help-table">
+  <tr><td>help</td><td>Display this help message</td></tr>
+  <tr><td>about</td><td>Learn about Abhishek</td></tr>
+  <tr><td>experience</td><td>View work history</td></tr>
+  <tr><td>skills</td><td>List technical skills</td></tr>
+  <tr><td>projects</td><td>Show project portfolio</td></tr>
+  <tr><td>education</td><td>Display academic background</td></tr>
+  <tr><td>contact</td><td>Get contact information</td></tr>
+  <tr><td>resume</td><td>Download resume (opens link)</td></tr>
+  <tr><td>tree</td><td>Display portfolio structure</td></tr>
+  <tr><td>clear</td><td>Clear terminal screen</td></tr>
+  <tr><td>matrix</td><td>Toggle matrix rain effect</td></tr>
+  <tr><td>sudo rm -rf /</td><td>Don't try this 😏</td></tr>
+</table>
+<div class="suggestion">Tip: Try typing 'about' to get started!</div>`,
+
+  about: `<div class="section-header">ABOUT ABHISHEK MUNJAL</div>
+<div class="section-content">
+<div style="margin-bottom:1rem;">
+<span style="color:var(--yellow);">Name:</span> Abhishek Munjal<br>
+<span style="color:var(--yellow);">Role:</span> Lead Developer @ Weboasis Labs (2020–Present)<br>
+<span style="color:var(--yellow);">Focus:</span> Web3 · Blockchain · Generative AI · Full-Stack<br>
+<span style="color:var(--yellow);">Location:</span> Delhi, India 🇮🇳<br>
+<span style="color:var(--yellow);">Status:</span> <span style="color:var(--green);">● Available for opportunities</span><br>
+<span style="color:var(--yellow);">Email:</span> <a href="mailto:munjalabhishek1996@gmail.com" style="color:var(--cyan);">munjalabhishek1996@gmail.com</a>
+</div>
+<p style="line-height:1.7;color:var(--text);">
+I lead engineering at <span style="color:var(--green);">Weboasis Labs</span>, shipping production Web3 dApps,
+AI-powered platforms, and full-stack products end to end. Recent work spans
+<span style="color:var(--cyan);">Arbius Playground</span>, <span style="color:var(--cyan);">Opentune</span>,
+<span style="color:var(--cyan);">Railcats</span>, and decentralised NFT mints across Ethereum, Polygon &amp; L2s.<br><br>
+I care about clean systems, strong primitives, and the <span style="color:var(--cyan);">smallest of details</span>
+— from gas-efficient Solidity to pixel-perfect frontends.
+</p>
+</div>`,
+
+  experience: `<div class="section-header">WORK EXPERIENCE</div>
+<div class="experience-item">
+  <div class="exp-title">Lead Developer</div>
+  <div class="exp-company">Weboasis Labs · 2020 – Present</div>
+  <div class="exp-desc">Leading engineering across Web3, AI and full-stack products. Architected and shipped Arbius Playground (decentralised AI inference), Opentune (AI music), Railcats &amp; Ghostclub (privacy NFTs on Railgun), MUMBOT, CryptoPodz, Artsies and more. Stack: Next.js, React, TypeScript, Node, Solidity, ethers.js, IPFS, AWS Lambda/Fargate, Docker, MongoDB.</div>
+</div>
+<div class="experience-item">
+  <div class="exp-title">Full Stack Developer</div>
+  <div class="exp-company">Elucidation Today · Past</div>
+  <div class="exp-desc">Built and maintained the full-stack EdTech platform — Django, VueJs, PostgreSQL, AWS.</div>
+</div>
+<div class="experience-item">
+  <div class="exp-title">Backend Developer</div>
+  <div class="exp-company">Houseitt · Past</div>
+  <div class="exp-desc">Backend systems for a student housing platform connecting students with verified accommodations. Django + PostgreSQL.</div>
+</div>
+<div class="experience-item">
+  <div class="exp-title">Software Engineer Intern</div>
+  <div class="exp-company">Rezo.ai · Internship</div>
+  <div class="exp-desc">Contributed to AI-driven backend services in a fast-paced startup environment.</div>
+</div>
+<div class="experience-item">
+  <div class="exp-title">Web Developer Intern</div>
+  <div class="exp-company">Whistlemind Technologies · Schoolbells · Internship</div>
+  <div class="exp-desc">Built and maintained features for Schoolbells, a school–parent communication app.</div>
+</div>`,
+
+  skills: `<div class="section-header">TECHNICAL SKILLS</div>
+<div class="skill-grid">
+  <div class="skill-category">
+    <div class="skill-cat-name">💻 Languages</div>
+    <ul class="skill-list">
+      <li>TypeScript / JavaScript</li>
+      <li>Python</li>
+      <li>Solidity</li>
+      <li>C / C++</li>
+      <li>HTML &amp; CSS</li>
+    </ul>
+  </div>
+  <div class="skill-category">
+    <div class="skill-cat-name">⚡ Frameworks</div>
+    <ul class="skill-list">
+      <li>Next.js / React</li>
+      <li>Node.js / Express</li>
+      <li>Django / Flask</li>
+      <li>Tailwind CSS</li>
+    </ul>
+  </div>
+  <div class="skill-category">
+    <div class="skill-cat-name">⛓️ Web3 / Blockchain</div>
+    <ul class="skill-list">
+      <li>Solidity (ERC-20/721/1155)</li>
+      <li>ethers.js / web3.js</li>
+      <li>Hardhat / Foundry</li>
+      <li>IPFS / The Graph</li>
+      <li>Railgun · Arbitrum · Polygon</li>
+    </ul>
+  </div>
+  <div class="skill-category">
+    <div class="skill-cat-name">🤖 AI / GenAI</div>
+    <ul class="skill-list">
+      <li>OpenAI &amp; Anthropic APIs</li>
+      <li>LangChain</li>
+      <li>Stable Diffusion / ComfyUI</li>
+      <li>RAG &amp; vector DBs</li>
+    </ul>
+  </div>
+  <div class="skill-category">
+    <div class="skill-cat-name">🗄️ Databases</div>
+    <ul class="skill-list">
+      <li>PostgreSQL</li>
+      <li>MongoDB</li>
+      <li>Redis</li>
+      <li>MySQL / SQLite</li>
+    </ul>
+  </div>
+  <div class="skill-category">
+    <div class="skill-cat-name">☁️ Cloud &amp; DevOps</div>
+    <ul class="skill-list">
+      <li>AWS (Lambda, Fargate, S3)</li>
+      <li>Docker</li>
+      <li>Linux</li>
+      <li>Git / GitHub Actions</li>
+    </ul>
+  </div>
+</div>`,
+
+  projects: `<div class="section-header">PROJECTS</div>
+<div class="project-item">
+  <div class="project-name">01. Arbius Playground</div>
+  <a href="https://playground.arbius.ai/" target="_blank" class="project-link">→ playground.arbius.ai</a>
+  <div class="project-desc">Decentralised AI inference on-chain — frontend + smart-contract integration for the Arbius network. Next.js, ethers.js, Solidity.</div>
+</div>
+<div class="project-item">
+  <div class="project-name">02. Opentune</div>
+  <a href="https://opentune.ai/" target="_blank" class="project-link">→ opentune.ai</a>
+  <div class="project-desc">Make your own AI. Next.js, Node, AWS.</div>
+</div>
+<div class="project-item">
+  <div class="project-name">03. Railcats</div>
+  <a href="https://railcats.io/" target="_blank" class="project-link">→ railcats.io</a>
+  <div class="project-desc">7788 exclusive digital cats fighting for an on-chain privacy</div>
+</div>
+<div class="project-item">
+  <div class="project-name">04. Ghostclub</div>
+  <a href="https://ghostclub.io/" target="_blank" class="project-link">→ ghostclub.io</a>
+  <div class="project-desc">NFT Marketplace — Solidity, IPFS, Next.js.</div>
+</div>
+<div class="project-item">
+  <div class="project-name">05. CryptoPodz</div>
+  <a href="https://cryptopodz.io/" target="_blank" class="project-link">→ cryptopodz.io</a>
+  <div class="project-desc">NFT Collection of 100 unique podz</div>
+</div>
+<div class="project-item">
+  <div class="project-name">06. Artsies</div>
+  <a href="https://artsies.io/" target="_blank" class="project-link">→ artsies.io</a>
+  <div class="project-desc">Women Led Web3 Art community & NFTs</div>
+</div>
+<div class="project-item">
+  <div class="project-name">08. ChangChuay</div>
+  <a href="https://changchuay.com/" target="_blank" class="project-link">→ changchuay.com</a>
+  <div class="project-desc">Housing services provider (Thailand)</div>
+</div>
+<div class="project-item">
+  <div class="project-name">09. Kaufmeinticket</div>
+  <a href="https://kaufmeinticket.com/" target="_blank" class="project-link">→ kaufmeinticket.com</a>
+  <div class="project-desc">Secondhand Ticket marketplace (DE)</div>
+</div>
+<div class="project-item">
+  <div class="project-name">10. Houseitt</div>
+  <a href="https://houseitt.in/" target="_blank" class="project-link">→ houseitt.in</a>
+  <div class="project-desc">Student housing platform connecting students with verified accommodations.</div>
+</div>
+<div class="project-item">
+  <div class="project-name">11. Elucidation Today</div>
+  <a href="https://elucidationtoday.com/" target="_blank" class="project-link">→ elucidationtoday.com</a>
+  <div class="project-desc">EdTech learning and recruiting platform</div>
+</div>`,
+
+  education: `<div class="section-header">EDUCATION</div>
+<div class="section-content">
+<div style="margin:0.75rem 0;">
+  <span style="color:var(--cyan);">🎓 M.Sc Computer Science</span><br>
+  <span style="color:var(--text2);font-size:0.9rem;">South Asian University</span>
+</div>
+<div style="margin:0.75rem 0;">
+  <span style="color:var(--cyan);">📚 B.Sc Computer Science</span><br>
+  <span style="color:var(--text2);font-size:0.9rem;">Kirori Mal College, Delhi University</span>
+</div>
+<div style="margin:0.75rem 0;">
+  <span style="color:var(--cyan);">🏫 XII Science (Non-Medical)</span><br>
+  <span style="color:var(--text2);font-size:0.9rem;">Kendriya Vidyalaya, CBSE</span>
+</div>
+</div>`,
+
+  contact: `<div class="section-header">CONTACT INFORMATION</div>
+<div class="section-content">
+<div style="line-height:2;">
+  <span style="color:var(--yellow);">📧 Email:</span> <a href="mailto:munjalabhishek1996@gmail.com" style="color:var(--cyan);">munjalabhishek1996@gmail.com</a><br>
+  <span style="color:var(--yellow);">📍 Location:</span> Delhi, India<br>
+  <span style="color:var(--yellow);">💼 LinkedIn:</span> <a href="https://www.linkedin.com/in/abhishek-munjal" style="color:var(--cyan);" target="_blank">linkedin.com/in/abhishek-munjal</a><br>
+  <span style="color:var(--yellow);">🐙 GitHub:</span> <a href="https://github.com/abhishekmunjal" style="color:var(--cyan);" target="_blank">github.com/abhishekmunjal</a><br>
+  <span style="color:var(--yellow);">🌐 Portfolio:</span> <a href="abhishek_munjal_portfolio.html" style="color:var(--cyan);" target="_blank">abhishek_munjal_portfolio.html</a>
+</div>
+<div style="margin-top:1rem;padding:0.75rem;background:rgba(0,255,65,0.05);border-left:3px solid var(--green);">
+  <span style="color:var(--green);">💡 Open to opportunities!</span><br>
+  <span style="color:var(--text2);font-size:0.85rem;">Feel free to reach out for collaborations, job opportunities, or just to say hi!</span>
+</div>
+</div>`,
+
+  tree: `<div class="section-header">PORTFOLIO STRUCTURE</div>
+<div class="tree-view">
+<div class="tree-item tree-dir">portfolio/</div>
+<div class="tree-item tree-dir" style="padding-left:2rem;">about/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">README.md</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">bio.txt</div>
+<div class="tree-item tree-dir" style="padding-left:2rem;">experience/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">weboasis_labs.md</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">elucidation_today.md</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">houseitt.md</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">rezo_ai.md</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">whistlemind.md</div>
+<div class="tree-item tree-dir" style="padding-left:2rem;">skills/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">languages.json</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">frameworks.json</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">web3.json</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">ai_genai.json</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">cloud_devops.json</div>
+<div class="tree-item tree-dir" style="padding-left:2rem;">projects/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">arbius_playground/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">opentune/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">railcats/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">ghostclub/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">cryptopodz/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">artsies/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">mumbot/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">changchuay/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">kaufmeinticket/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">houseitt/</div>
+<div class="tree-item tree-file" style="padding-left:3rem;">elucidation_today/</div>
+<div class="tree-item tree-file" style="padding-left:2rem;">contact.vcf</div>
+</div>`,
+
+  resume: `<div class="output success">Opening resume in new tab...</div>
+<div class="suggestion">Resume link would go here. Connect it to your actual resume PDF/link.</div>`,
+
+  clear: 'CLEAR',
+};
+
+// Boot sequence
+function bootSequence() {
+  const bootLines = [
+    '[    0.000000] Linux version 6.1.0-abhishek (abhishek@portfolio) #1 SMP',
+    '[    0.000000] Command line: BOOT_IMAGE=/vmlinuz root=UUID=portfolio',
+    '[    0.042315] Initializing CPU#0',
+    '[    0.156892] Memory: 16GB RAM',
+    '[    0.234567] Mounting filesystems...',
+    '[    0.345678] Loading portfolio modules...',
+    '[    0.456789] Starting network services...',
+    '[    0.567890] Portfolio system ready.',
+    '',
+  ];
+
+  bootLines.forEach((line, i) => {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.className = 'boot-line';
+      div.style.animationDelay = `${i * 0.1}s`;
+      div.textContent = line;
+      output.appendChild(div);
+      if (i === bootLines.length - 1) {
+        setTimeout(showWelcome, 300);
+      }
+    }, i * 100);
+  });
+}
+
+function showWelcome() {
+  const ascii = `
+    ___    __    __    _ __           __       __  
+   /   |  / /_  / /_  (_) /  ___ ___ / /  ___ / /__
+  / /| | / __ \\/ __ \\/ / _ \\(_-</ -_)  '_/ // / _ \\
+ /_/ |_/_____/_/_/_/_/_/\\___/___/\\__/_/\\_\\\\_\\,/_//_/
+ 
+ ╔══════════════════════════════════════════════════╗
+ ║  Welcome to Abhishek's Interactive Portfolio    ║
+ ║  Lead Developer · Web3 · AI · Delhi, India        ║
+ ╚══════════════════════════════════════════════════╝
+`;
+
+  const welcome = document.createElement('div');
+  welcome.className = 'ascii-art';
+  welcome.textContent = ascii;
+  output.appendChild(welcome);
+
+  const intro = document.createElement('div');
+  intro.className = 'output';
+  intro.innerHTML = `<span style="color:var(--cyan);">Type 'help' to see available commands or start with 'about'.</span>`;
+  output.appendChild(intro);
+
+  createPrompt();
+}
+
+function createPrompt() {
+  const prompt = document.createElement('div');
+  prompt.className = 'prompt';
+  prompt.innerHTML = `
+    <span class="prompt-symbol">┌──(</span>
+    <span class="prompt-path">abhishek㉿portfolio</span>
+    <span class="prompt-symbol">)-[</span>
+    <span class="prompt-path">~</span>
+    <span class="prompt-symbol">]</span><br>
+    <span class="prompt-symbol">└─$</span>
+    <input type="text" class="prompt-input" id="commandInput" autocomplete="off" spellcheck="false" autofocus>
+  `;
+  output.appendChild(prompt);
+  
+  const input = document.getElementById('commandInput');
+  input.focus();
+  
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const cmd = input.value.trim().toLowerCase();
+      if (cmd) {
+        commandHistory.push(cmd);
+        historyIndex = commandHistory.length;
+        handleCommand(cmd);
+      }
+      input.value = '';
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        historyIndex--;
+        input.value = commandHistory[historyIndex];
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex < commandHistory.length - 1) {
+        historyIndex++;
+        input.value = commandHistory[historyIndex];
+      } else {
+        historyIndex = commandHistory.length;
+        input.value = '';
+      }
+    }
+  });
+  
+  output.scrollTop = output.scrollHeight;
+}
+
+function handleCommand(cmd) {
+  // Remove input
+  const lastPrompt = output.querySelector('.prompt:last-child');
+  const displayCmd = document.createElement('div');
+  displayCmd.innerHTML = `<span style="color:var(--green);">┌──(</span><span style="color:var(--blue);">abhishek㉿portfolio</span><span style="color:var(--green);">)-[</span><span style="color:var(--blue);">~</span><span style="color:var(--green);">]</span><br><span style="color:var(--green);">└─$</span> <span style="color:var(--white);">${cmd}</span>`;
+  output.replaceChild(displayCmd, lastPrompt);
+
+  // Special commands
+  if (cmd === 'clear' || cmd === 'cls') {
+    output.innerHTML = '';
+    createPrompt();
+    return;
+  }
+
+  if (cmd === 'sudo rm -rf /') {
+    const joke = document.createElement('div');
+    joke.className = 'output error';
+    joke.innerHTML = `<span style="color:var(--red);">😱 Nice try! But this portfolio is staying alive.</span><br><span style="color:var(--text2);">rm: cannot remove '/': Permission denied (and you know why)</span>`;
+    output.appendChild(joke);
+    createPrompt();
+    return;
+  }
+
+  if (cmd === 'matrix') {
+    toggleMatrix();
+    const msg = document.createElement('div');
+    msg.className = 'output success';
+    msg.textContent = 'Matrix effect toggled.';
+    output.appendChild(msg);
+    createPrompt();
+    return;
+  }
+
+  // Standard commands
+  if (commands[cmd]) {
+    if (commands[cmd] === 'CLEAR') {
+      output.innerHTML = '';
+    } else {
+      const result = document.createElement('div');
+      result.className = 'output';
+      result.innerHTML = commands[cmd];
+      output.appendChild(result);
+    }
+  } else {
+    const error = document.createElement('div');
+    error.className = 'output not-found';
+    error.innerHTML = `bash: ${cmd}: command not found<br><span class="suggestion">Type 'help' to see available commands.</span>`;
+    output.appendChild(error);
+  }
+
+  createPrompt();
+}
+
+// Matrix rain effect
+let matrixInterval;
+function initMatrix() {
+  const canvas = document.createElement('canvas');
+  const matrix = document.getElementById('matrix');
+  matrix.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+  const fontSize = 14;
+  const columns = canvas.width / fontSize;
+  const drops = Array(Math.floor(columns)).fill(1);
+  
+  function draw() {
+    ctx.fillStyle = 'rgba(10, 14, 20, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = fontSize + 'px monospace';
+    
+    for (let i = 0; i < drops.length; i++) {
+      const text = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+  
+  matrixInterval = setInterval(draw, 50);
+}
+
+function toggleMatrix() {
+  const matrix = document.getElementById('matrix');
+  if (matrix.style.opacity === '0.03') {
+    matrix.style.opacity = '0';
+  } else {
+    matrix.style.opacity = '0.03';
+  }
+}
+
+// Initialize
+window.addEventListener('load', () => {
+  initMatrix();
+  bootSequence();
+});
+
+// Keep focus on terminal
+document.addEventListener('click', () => {
+  const input = document.getElementById('commandInput');
+  if (input) input.focus();
+});
+</script>
+</body>
+</html>

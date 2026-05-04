@@ -1,521 +1,564 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<link rel="manifest" href="manifest.webmanifest">
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120127335-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-120127335-1');
-</script>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="This webpage is a portfolio page of Abhishek Munjal, A Computer Science enthusiast from Delhi, India. He is a freelance full stack developer">
-<meta name="keywords" content="Personal Website Designs, portfolio, portfolio webpage, portfolio website, abhishek munjal, abhishek munjal website, Elucidation Today, Houseitt, Whistlemind Technologies, Schoolbells, developer, freelancer, full stack developer, freelancer in delhi">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Munjal — Lead Developer · Full Stack & Blockchain</title>
+<meta name="description" content="Abhishek Munjal — Lead Developer at Weboasis Labs. Full Stack, Blockchain (Solidity, Web3, IPFS) and AI engineer based in Delhi, India.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#050e0a;--bg2:#081209;--bg3:#0d1f10;
+  --card:#0f1f12;--border:rgba(74,222,128,0.08);--border2:rgba(74,222,128,0.18);
+  --green:#4ade80;--green2:#86efac;--gold:#fbbf24;--sky:#38bdf8;
+  --text:#eefbf2;--text2:#7aab84;
+  --mono:'DM Mono',monospace;--sans:'Plus Jakarta Sans',sans-serif;--serif:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;cursor:none;}
 
-<title>Abhishek Munjal | Personal Website Design | Portfolio</title>
-<link rel="shortcut icon" type="image/png" href="static/favicon.png"/>
-<link rel="stylesheet" href="https://unpkg.com/vue-agile/dist/VueAgile.css">
-<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-<link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Piazzolla&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="static/css/style.css" />
+.cursor{width:10px;height:10px;background:var(--green);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;mix-blend-mode:screen;}
+.cursor-ring{width:36px;height:36px;border:1.5px solid var(--green);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;opacity:0.4;transition:all 0.15s ease;}
 
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:0.025;pointer-events:none;z-index:9990;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 4rem;z-index:100;background:linear-gradient(to bottom,var(--bg) 0%,transparent 100%);}
+.nav-logo{font-family:var(--mono);font-size:0.85rem;color:var(--green);letter-spacing:0.1em;text-decoration:none;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:0.8rem;color:var(--text2);text-decoration:none;letter-spacing:0.05em;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--green);transition:width 0.3s ease;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{font-family:var(--mono);font-size:0.8rem;color:var(--bg);background:var(--green);padding:0.55rem 1.4rem;border-radius:2rem;text-decoration:none;transition:all 0.25s;font-weight:600;}
+.nav-cta:hover{background:var(--green2);transform:scale(1.04);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:10rem 4rem 4rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;}
+.glow-1{width:600px;height:600px;background:radial-gradient(circle,rgba(74,222,128,0.12) 0%,transparent 70%);top:-100px;left:-100px;animation:drift1 12s ease-in-out infinite;}
+.glow-2{width:500px;height:500px;background:radial-gradient(circle,rgba(134,239,172,0.08) 0%,transparent 70%);bottom:-50px;right:200px;animation:drift2 15s ease-in-out infinite;}
+@keyframes drift1{0%,100%{transform:translate(0,0);}50%{transform:translate(60px,40px);}}
+@keyframes drift2{0%,100%{transform:translate(0,0);}50%{transform:translate(-50px,-30px);}}
+
+.hero-content{max-width:900px;position:relative;z-index:2;}
+.hero-label{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.75rem;color:var(--green);background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);padding:0.4rem 1rem;border-radius:2rem;margin-bottom:2rem;letter-spacing:0.08em;}
+.hero-label .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+.hero-name{font-size:clamp(3.5rem,8vw,7rem);font-weight:800;line-height:0.95;letter-spacing:-0.03em;margin-bottom:1rem;}
+.hero-name span{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-tagline{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3vw,2.2rem);color:var(--text2);margin-bottom:2.5rem;}
+.hero-desc{font-family:var(--mono);font-size:0.9rem;line-height:1.8;color:var(--text2);max-width:620px;margin-bottom:3rem;}
+.hero-btns{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--green);color:var(--bg);padding:0.9rem 2rem;border-radius:0.5rem;text-decoration:none;font-size:0.9rem;font-weight:700;transition:all 0.25s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(74,222,128,0.35);}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border2);color:var(--text2);padding:0.9rem 2rem;border-radius:0.5rem;text-decoration:none;font-size:0.9rem;transition:all 0.25s;}
+.btn-ghost:hover{border-color:var(--green);color:var(--text);}
+
+/* MARQUEE */
+.marquee-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.25rem 0;overflow:hidden;background:var(--bg3);}
+.marquee-track{display:flex;gap:2rem;white-space:nowrap;animation:marquee 30s linear infinite;}
+.marquee-item{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--text2);text-transform:uppercase;display:flex;align-items:center;gap:1rem;}
+.marquee-dot{color:var(--green);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTION BASE */
+section{padding:8rem 4rem;}
+.section-label{font-family:var(--mono);font-size:0.75rem;color:var(--green);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+.section-label::before{content:'//';opacity:0.5;}
+.section-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;line-height:1.1;letter-spacing:-0.03em;margin-bottom:1.5rem;}
+
+/* ABOUT */
+.about{background:var(--bg2);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;max-width:1200px;margin:0 auto;}
+.about-text p{font-size:1.05rem;line-height:1.9;color:var(--text2);margin-bottom:1.5rem;}
+.about-text p strong{color:var(--text);font-weight:600;}
+.about-cards{display:flex;flex-direction:column;gap:1rem;}
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1.5rem;transition:border-color 0.3s;}
+.about-card:hover{border-color:var(--green);}
+.about-card-label{font-family:var(--mono);font-size:0.7rem;color:var(--green);letter-spacing:0.1em;margin-bottom:0.5rem;}
+.about-card-val{font-size:1.1rem;font-weight:700;}
+.about-card-sub{font-family:var(--mono);font-size:0.8rem;color:var(--text2);margin-top:0.2rem;}
+
+/* EXPERIENCE */
+.exp-list{max-width:860px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1rem;}
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:1rem;overflow:hidden;transition:border-color 0.3s;}
+.exp-card.open{border-color:var(--green);}
+.exp-header{display:flex;align-items:center;justify-content:space-between;padding:1.6rem 2rem;cursor:pointer;gap:1rem;}
+.exp-header-left{display:flex;flex-direction:column;gap:0.25rem;}
+.exp-badge{font-family:var(--mono);font-size:0.68rem;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;}
+.exp-title{font-size:1.1rem;font-weight:700;}
+.exp-company{font-family:var(--mono);font-size:0.8rem;color:var(--text2);}
+.exp-toggle{width:32px;height:32px;border-radius:50%;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;color:var(--green);font-size:1.1rem;line-height:1;}
+.exp-card.open .exp-toggle{background:var(--green);color:var(--bg);transform:rotate(45deg);}
+.exp-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows 0.4s ease;}
+.exp-card.open .exp-body{grid-template-rows:1fr;}
+.exp-body-inner{overflow:hidden;}
+.exp-par{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);}
+.par-step{background:var(--card);padding:1.5rem;position:relative;}
+.par-num{font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--green);opacity:0.1;position:absolute;top:1rem;right:1.25rem;line-height:1;}
+.par-label{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem;}
+.par-label::before{content:'';display:inline-block;width:14px;height:1px;background:var(--green);opacity:0.6;}
+.par-text{font-size:0.88rem;line-height:1.75;color:var(--text2);}
+.par-text em{font-style:normal;color:var(--text);font-weight:600;}
+
+/* SKILLS */
+.skills-section{background:var(--bg2);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1200px;margin:3rem auto 0;}
+.skill-cat{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:2rem;transition:transform 0.3s,border-color 0.3s;}
+.skill-cat:hover{transform:translateY(-4px);border-color:var(--green);}
+.skill-cat-icon{font-size:1.8rem;margin-bottom:0.75rem;}
+.skill-cat-title{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:1.25rem;font-family:var(--mono);}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.skill-tag{font-family:var(--mono);font-size:0.75rem;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.18);color:var(--green2);padding:0.3rem 0.75rem;border-radius:0.25rem;transition:all 0.2s;}
+.skill-tag:hover{background:rgba(74,222,128,0.15);border-color:var(--green);color:var(--text);}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;max-width:1200px;margin:3rem auto 0;}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:2rem;text-decoration:none;color:var(--text);display:flex;flex-direction:column;transition:all 0.3s;position:relative;overflow:hidden;}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--gold));transform:scaleX(0);transition:transform 0.3s;}
+.project-card:hover{transform:translateY(-4px);border-color:var(--green);}
+.project-card:hover::before{transform:scaleX(1);}
+.project-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;}
+.project-num{font-family:var(--mono);font-size:0.75rem;color:var(--green);opacity:0.6;}
+.project-tag{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(251,191,36,0.25);padding:0.2rem 0.55rem;border-radius:0.25rem;}
+.project-tag.web3{color:var(--green);border-color:rgba(74,222,128,0.3);}
+.project-tag.ai{color:var(--sky);border-color:rgba(56,189,248,0.3);}
+.project-name{font-size:1.25rem;font-weight:700;margin-bottom:0.6rem;}
+.project-year{font-family:var(--mono);font-size:0.7rem;color:var(--text2);margin-bottom:0.85rem;}
+.project-desc{font-size:0.86rem;line-height:1.7;color:var(--text2);margin-bottom:1.25rem;flex:1;}
+.project-stack{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.25rem;}
+.project-stack span{font-family:var(--mono);font-size:0.65rem;color:var(--text2);background:rgba(74,222,128,0.05);border:1px solid var(--border);padding:0.18rem 0.5rem;border-radius:0.25rem;}
+.project-link{font-family:var(--mono);font-size:0.75rem;color:var(--gold);display:flex;align-items:center;gap:0.4rem;margin-top:auto;}
+.project-arrow{transition:transform 0.2s;}
+.project-card:hover .project-arrow{transform:translateX(4px);}
+
+/* EDUCATION */
+.education{background:var(--bg2);}
+.edu-list{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1.5rem;}
+.edu-item{display:flex;align-items:flex-start;gap:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1.75rem;transition:border-color 0.3s;}
+.edu-item:hover{border-color:var(--green);}
+.edu-icon{width:44px;height:44px;background:rgba(74,222,128,0.1);border-radius:0.6rem;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.edu-degree{font-size:1rem;font-weight:700;margin-bottom:0.25rem;}
+.edu-school{font-family:var(--mono);font-size:0.8rem;color:var(--text2);}
+.edu-year{font-family:var(--mono);font-size:0.7rem;color:var(--green);margin-top:0.35rem;letter-spacing:0.08em;}
+
+/* CONTACT */
+.contact-inner{max-width:700px;margin:0 auto;text-align:center;}
+.contact-inner .section-label{justify-content:center;}
+.contact-sub{font-size:1rem;color:var(--text2);line-height:1.7;margin-bottom:3rem;}
+.contact-form{display:flex;flex-direction:column;gap:1rem;text-align:left;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+.form-label{font-family:var(--mono);font-size:0.72rem;color:var(--text2);letter-spacing:0.08em;}
+.form-input,.form-textarea{background:var(--card);border:1px solid var(--border);border-radius:0.5rem;padding:0.85rem 1rem;color:var(--text);font-family:var(--mono);font-size:0.88rem;outline:none;transition:border-color 0.2s;width:100%;}
+.form-input:focus,.form-textarea:focus{border-color:var(--green);}
+.form-textarea{resize:vertical;min-height:130px;}
+.form-submit{background:var(--green);color:var(--bg);border:none;padding:1rem 2.5rem;border-radius:0.5rem;font-family:var(--sans);font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.25s;align-self:center;margin-top:0.5rem;}
+.form-submit:hover{background:var(--green2);transform:scale(1.04);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-copy{font-family:var(--mono);font-size:0.75rem;color:var(--text2);}
+.footer-copy span{color:var(--green);}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{font-family:var(--mono);font-size:0.75rem;color:var(--text2);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--green);}
+
+.section-inner{max-width:1200px;margin:0 auto;}
+
+@media(max-width:768px){
+  body{cursor:auto;}
+  .cursor,.cursor-ring{display:none;}
+  nav{padding:1.25rem 1.25rem;}
+  .nav-links{display:none;}
+  .nav-cta{padding:0.45rem 1rem;font-size:0.7rem;}
+  section{padding:5rem 1.25rem;}
+  .hero{padding:8rem 1.25rem 4rem;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .exp-par{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  footer{flex-direction:column;text-align:center;padding:2rem 1.25rem;}
+}
+</style>
 </head>
 <body>
 
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<div id="root">
-  <section id="sec1" class="slide-section">
-    <div class="slide">
-      <div class="side-bar">
-        <div data-aos="fade-up" data-aos-duration="1500" class="hero-text">I make web, an easy place for you<span class="cursor">&nbsp;</span></div>
-        <div class="social-icons">
-          <ul>
-            <li v-for="(si, index) in socialIcons" :key="index">
-              <a :href="si.url" :target="si.target"><i :class="si.social"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="abhishek-div">
-		<div class="box">
-		    <div class="title">
-		        <span class="block"></span>
-		        <h1>Abhishek Munjal<span></span></h1>
-		    </div>
-		    <div class="role">
-		        <div class="block"></div>
-		        <p>Full Stack Developer</p>
-		    </div>
-		</div>
-      </div>
+<nav>
+  <a href="#" class="nav-logo">AM_</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:munjalabhishek1996@gmail.com" class="nav-cta">Hire me →</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-glow glow-1"></div>
+  <div class="hero-glow glow-2"></div>
+  <div class="hero-content">
+    <div class="hero-label"><span class="dot"></span>Available for new opportunities</div>
+    <h1 class="hero-name">Abhishek<br><span>Munjal</span></h1>
+    <p class="hero-tagline">Building the web, the chain, and the intelligence in between.</p>
+    <p class="hero-desc">Lead Developer · Full Stack · Blockchain · AI<br>Delhi, India — building production-grade products end to end since 2019.<br>Python · Django · Next.js · React · Solidity · Web3 · AWS</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work ↓</a>
+      <a href="#contact" class="btn-ghost">Get In Touch</a>
+      <a href="https://www.linkedin.com/in/abhishek-munjal" target="_blank" rel="noopener" class="btn-ghost">LinkedIn ↗</a>
     </div>
-  </section>
+  </div>
+</section>
 
-
-
-
-
-
-  <section id="sec2" class="about-section">
-  	<div class="about">
-  	  <div class="text-block" data-aos="fade-right" data-aos-duration="1000">
-      	How do I do it?
-      </div>
-      <div class="tools">
-      	<ul class="circle-container">
-	      	<li><i class="fab fa-html5"></i></li>
-	      	<li><i class="fab fa-css3-alt"></i></li>
-	      	<li><i class="fab fa-aws"></i></li>
-	      	<li><i class="fab fa-python"></i></li>
-	      	<li><i class="fab fa-vuejs"></i></li>
-	      	<li><i class="fab fa-js"></i></li>
-	      	<li><i class="fas fa-laptop-code"></i></li>
-	      	<li><i class="fas fa-mobile-alt"></i></li>
-	      	<li><i class="fas fa-database"></i></li>
-	      	<li><i class="fab fa-github"></i></li>
-	      	<li><i class="fas fa-headphones"></i></li>
-	      	<li><i class="fab fa-linux"></i></li>
-	      	<li><i class="fab fa-windows"></i></li>
-	      	<li class="text"><img src="images/abhishek_anim.png">Using These Tools</li>
-	    </ul>
-      </div>
-      <div class="about-text">
-        <h2 class="border-anim">About Me</h2>
-        <div class="about-text-p">
-          "<span id="changingGreet">Hello</span>", I am a Computer Science enthusiast and a full stack developer from Delhi, India<br>
-          I love to code and try to make things simple for everyone.
-        <div class="rest-about-me">
-          <p>I believe that every human being is equally capable of doing all the things and so I am exploring myself by trying out different fields of work.<br>Coding and dragon ball series is what I love the most.</p>
-          <p>I also believe that beauty comes by paying attention to smallest of the details.<br>Irrelevant?😅 No, you'll see when we will work together on some project.</p>
-          <div class="contact-button">
-            <button onclick="scrollToSection('#sec4')">I want to work with you</button>
-          </div>
-        </div>
-        </div>
-      </div>
-  	</div>
-  </section>
-
-
-
-
-
-
-  <section class="resume-json" id="sec3">
-    <div class="resume-side-bar">
-      <div class="text-block">
-        <div>R</div>
-        <div>E</div>
-        <div>S</div>
-        <div>U</div>
-        <div>M</div>
-        <div>E</div>
-      </div>
-    </div>
-    <div class="collapse resume-background">
-    <label class="collapse-right" v-on:click="collapsed">
-      <span>{</span>
-    </label>
-    <div class="collapse">
-      <div class="collapse">
-        <label class="collapse-label">
-          "Name" : 
-        </label>
-        <div class="collapse-item">
-          "Abhishek",
-        </div>
-      </div>
-      <div class="collapse">
-        <label class="collapse-right" v-on:click="collapsed">
-          "Contact" : <span>{</span>
-        </label>
-        <div class="collapse">
-          <!--div class="collapse">
-              <label class="collapse-label">
-                "Phone" : 
-              </label>
-              <div class="collapse-item">
-                <a href="tel:">""</a>,
-              </div>
-          </div-->
-          <div class="collapse">
-              <label class="collapse-label">
-                "Email" :
-              </label>
-              <div class="collapse-item">
-                <a href="mailto:munjalabhishek1996@gmail.com">"munjalabhishek1996@gmail.com"</a>
-              </div>
-          </div>
-        </div>
-      },
-      </div>
-      <div class="collapse">
-        <label class="collapse-right" v-on:click="collapsed">
-          "Experience" : <span>{</span>
-        </label>
-        <div class="collapse">
-          <div class="collapse">
-              <label class="collapse-label">
-                "Houseitt" : 
-              </label>
-              <div class="collapse-item">
-                "Backend Developer",
-              </div>
-          </div>
-          <div class="collapse">
-              <label class="collapse-label">
-                "Whistlemind Technologies" : 
-              </label>
-              <div class="collapse-item">
-                "Web Developer Intern",
-              </div>
-          </div>
-          <div class="collapse">
-              <label class="collapse-label">
-                "Rezo.ai" : 
-              </label>
-              <div class="collapse-item">
-                "Software Engineer Intern",
-              </div>
-          </div>
-          <div class="collapse">
-              <label class="collapse-label">
-                "Elucidation Today" : 
-              </label>
-              <div class="collapse-item">
-                "Full Stack Developer"
-              </div>
-          </div>
-        </div>
-      },
-      </div>
-      <div class="collapse">
-        <label class="collapse-right" v-on:click="collapsed">
-          "Education" : <span>{</span>
-        </label>
-        <div class="collapse">
-          <div class="collapse">
-              <label class="collapse-label">
-                "M.Sc Computer Science" : 
-              </label>
-              <div class="collapse-item">
-                "South Asian University",
-              </div>
-          </div>
-          <div class="collapse">
-              <label class="collapse-label">
-                "B.Sc Computer Science" : 
-              </label>
-              <div class="collapse-item">
-                "Kirori Mal College, DU",
-              </div>
-          </div>
-          <div class="collapse">
-              <label class="collapse-label">
-                "XII Science (Non-Med)" : 
-              </label>
-              <div class="collapse-item">
-                "Kendriya Vidalaya (CBSE)"
-              </div>
-          </div>
-        </div>
-      },
-      </div>
-      <div class="collapse">
-        <label class="collapse-right" v-on:click="collapsed">
-          "Skills" : <span>{</span>
-        </label>
-        <div class="collapse">
-          <div class="collapse">
-              <label class="collapse-right" v-on:click="collapsed">
-                "Languages" : <span>[</span>
-              </label>
-              <div class="collapse-item">
-                "C/C++",
-                "Java",
-                "Python",
-                "HTML",
-                "CSS",
-                "JS",
-                "JQuery"
-              </div>
-              ],
-          </div>
-          <div class="collapse">
-              <label class="collapse-right" v-on:click="collapsed">
-                "Frameworks" : <span>[</span>
-              </label>
-              <div class="collapse-item">
-                "Django",
-                "Flask",
-                "VueJs"
-              </div>
-              ],
-          </div>
-          <div class="collapse">
-              <label class="collapse-right" v-on:click="collapsed">
-                "Databases" : <span>[</span>
-              </label>
-              <div class="collapse-item">
-                "MySQL",
-                "PostgreSQL",
-                "Sqlite3"
-              </div>
-              ],
-          </div>
-          <div class="collapse">
-              <label class="collapse-right" v-on:click="collapsed">
-                "OS and Technologies" : <span>[</span>
-              </label>
-              <div class="collapse-item">
-                "Windows",
-                "Linux",
-                "AWS",
-                "Git"
-              </div>
-              ]
-          </div>
-        </div>
-      },
-      </div>
-      <div class="collapse">
-        <label class="collapse-right" v-on:click="collapsed">
-          "Roles and Responsibilities" : <span>{</span>
-        </label>
-        <div class="collapse">
-          <div class="collapse">
-              <label class="collapse-right" v-on:click="collapsed">
-                "The Computer Prodigies" : <span>{</span>
-              </label>
-              <div class="collapse">
-                <div class="collapse">
-                  <label class="collapse-label">
-                    "Description" :
-                  </label>
-                  <div class="collapse-item">"The Computer Science society of KMC DU",</div>
-                </div>
-                <div class="collapse">
-                  <label class="collapse-label">"Role" :</label>
-                  <div class="collapse-item">
-                      "Co-Founder"
-                  </div>
-                </div>
-              </div>
-              },
-          </div>
-          <div class="collapse">
-              <label class="collapse-right" v-on:click="collapsed">
-                "Technival" : <span>{</span>
-              </label>
-              <div class="collapse">
-                <label class="collapse-label">"Description" :
-                </label>
-                <div class="collapse-item">"Annual Fest of Computer Science Department of KMC",</div>
-              </div>
-              <div class="collapse">
-                <label class="collapse-label">"Role" :</label>
-                <div class="collapse-item">"Organizer as Vice President of Technival β and Technival 1.0"</div>
-              </div>
-            }
-          </div>
-      </div>
-      }
-    </div>
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item">Lead Developer <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Full Stack <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Blockchain <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Solidity <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Web3.js <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">IPFS <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Next.js <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">React <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">TypeScript <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Django <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Node.js <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">MongoDB <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">AWS <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Docker <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Generative AI <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Lead Developer <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Full Stack <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Blockchain <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Solidity <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Web3.js <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">IPFS <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Next.js <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">React <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">TypeScript <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Django <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Node.js <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">MongoDB <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">AWS <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Docker <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Generative AI <span class="marquee-dot">◆</span></span>
+  </div>
 </div>
+
+<section class="about" id="about">
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Lead Developer.<br>Code-first thinker.</h2>
+      <p>"Hello" — I'm a full-stack & blockchain engineer from <strong>Delhi, India</strong>. For the past 5+ years I've shipped products end-to-end across <strong>Web2, Web3 and AI</strong> — from real-estate platforms to NFT marketplaces, decentralized AI playgrounds, and DeFi tooling.</p>
+      <p>As <strong>Lead Developer at Weboasis Labs</strong>, I run projects across the full lifecycle — architecture, smart contracts, backends, frontends, AWS infra — and the team that builds them.</p>
+      <p>I believe great products are built one <strong>small detail</strong> at a time. You'll see that when we work together.</p>
+      <br>
+      <a href="mailto:munjalabhishek1996@gmail.com" class="btn-primary" style="display:inline-flex">Let's work together →</a>
+    </div>
+    <div class="about-cards">
+      <div class="about-card"><div class="about-card-label">ROLE</div><div class="about-card-val">Lead Developer</div><div class="about-card-sub">Weboasis Labs · 2020 – Present</div></div>
+      <div class="about-card"><div class="about-card-label">LOCATION</div><div class="about-card-val">Delhi, India</div><div class="about-card-sub">Remote-first · global clients</div></div>
+      <div class="about-card"><div class="about-card-label">EMAIL</div><div class="about-card-val" style="font-size:0.9rem">munjalabhishek1996@gmail.com</div><div class="about-card-sub">Response within 24 hours</div></div>
+      <div class="about-card"><div class="about-card-label">FOCUS</div><div class="about-card-val">Full Stack · Web3 · AI</div><div class="about-card-sub">Solidity · Next.js · Django · AWS</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Career</div>
+      <h2 class="section-title">Experience</h2>
+      <p style="font-family:var(--mono);font-size:0.8rem;color:var(--text2);margin-top:-0.5rem;">Click any role to see Challenge → Approach → Outcome</p>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-card reveal">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left"><span class="exp-badge">Current Role · 2020 – Present</span><div class="exp-title">Lead Developer</div><div class="exp-company">Weboasis Labs · Remote, India</div></div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
+          <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Deliver diverse client products end-to-end — <em>NFT platforms, DeFi tooling, AI chat platforms, ticketing, real-estate</em> — across Web2 and Web3.</p></div>
+          <div class="par-step"><span class="par-num">02</span><div class="par-label">Approach</div><p class="par-text">Architected and built across <em>Next.js, React, Django, Node, Solidity, Web3.js, IPFS, AWS</em>. Grew into Lead Developer — owning architecture and driving cross-functional teams.</p></div>
+          <div class="par-step"><span class="par-num">03</span><div class="par-label">Outcome</div><p class="par-text">Shipped <em>Arbius, Railcats, Cryptopodz, Ghostclub, Opentune, Kaufmeinticket, ChangChuay</em> and more — production products serving global users.</p></div>
+        </div></div></div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left"><span class="exp-badge">2019 – 2020</span><div class="exp-title">Product Developer</div><div class="exp-company">Houseitt · Delhi, India</div></div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
+          <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Students had <em>no reliable platform</em> for verified accommodation — listings unverified, process opaque.</p></div>
+          <div class="par-step"><span class="par-num">02</span><div class="par-label">Approach</div><p class="par-text">Led the <em>technical team</em> and managed interns across frontend, backend, testing, design and content. Built and maintained a real-estate product end to end.</p></div>
+          <div class="par-step"><span class="par-num">03</span><div class="par-label">Outcome</div><p class="par-text">Launched <em>houseitt.in</em> — a live housing marketplace bringing trust to student accommodation.</p></div>
+        </div></div></div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left"><span class="exp-badge">Internship · Mar – Jun 2020</span><div class="exp-title">Product Developer</div><div class="exp-company">Whistlemind Technologies · Pune (Remote)</div></div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
+          <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Schools needed an <em>ERP and content system</em> spanning web and mobile — with shared APIs and lecture management.</p></div>
+          <div class="par-step"><span class="par-num">02</span><div class="par-label">Approach</div><p class="par-text">Designed and built <em>Schoolbells</em> from scratch — common APIs for web/mobile, plus a CMS for video lectures, with end-to-end testing.</p></div>
+          <div class="par-step"><span class="par-num">03</span><div class="par-label">Outcome</div><p class="par-text">Delivered a <em>structured ERP</em> keeping teachers, parents and students aligned in school life.</p></div>
+        </div></div></div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left"><span class="exp-badge">Internship · Jul – Aug 2020</span><div class="exp-title">Software Engineer</div><div class="exp-company">Rezo.ai · Remote</div></div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
+          <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Build and maintain <em>conversational bots</em> for enterprise clients with very different domains and workflows.</p></div>
+          <div class="par-step"><span class="par-num">02</span><div class="par-label">Approach</div><p class="par-text">Authored bots for <em>Delhivery</em>, gathered and documented requirements, and maintained chatbot solutions for <em>Maruti, USHA and Lal PathLabs</em>.</p></div>
+          <div class="par-step"><span class="par-num">03</span><div class="par-label">Outcome</div><p class="par-text">Shipped features in a <em>production AI product</em>, gaining enterprise-grade engineering experience.</p></div>
+        </div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="skills-section" id="skills">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Tech Stack</div><h2 class="section-title">Skills & Tools</h2></div>
+    <div class="skills-grid">
+      <div class="skill-cat reveal">
+        <div class="skill-cat-icon">💻</div>
+        <div class="skill-cat-title">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Solidity</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-icon">⚡</div>
+        <div class="skill-cat-title">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Django</span><span class="skill-tag">Flask</span><span class="skill-tag">Next.js</span><span class="skill-tag">React.js</span><span class="skill-tag">Node.js</span><span class="skill-tag">Vue.js</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-icon">⛓️</div>
+        <div class="skill-cat-title">Blockchain</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Solidity</span><span class="skill-tag">Web3.js</span><span class="skill-tag">ethers.js</span><span class="skill-tag">ERC-721</span><span class="skill-tag">ERC-1155</span><span class="skill-tag">IPFS</span><span class="skill-tag">Smart Contracts</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-icon">🗄️</div>
+        <div class="skill-cat-title">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span><span class="skill-tag">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-icon">☁️</div>
+        <div class="skill-cat-title">Cloud & DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS EC2</span><span class="skill-tag">Fargate</span><span class="skill-tag">Lambda</span><span class="skill-tag">S3</span><span class="skill-tag">CloudWatch</span><span class="skill-tag">Docker</span><span class="skill-tag">CI/CD</span><span class="skill-tag">Nginx</span><span class="skill-tag">Vercel</span><span class="skill-tag">Netlify</span>
+        </div>
+      </div>
+      <div class="skill-cat reveal">
+        <div class="skill-cat-icon">🤖</div>
+        <div class="skill-cat-title">AI & Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">OpenAI</span><span class="skill-tag">Anthropic</span><span class="skill-tag">Claude</span><span class="skill-tag">Cursor</span><span class="skill-tag">Codex</span><span class="skill-tag">Lovable</span><span class="skill-tag">Replit</span><span class="skill-tag">Deepseek</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Work</div><h2 class="section-title">Selected Projects</h2>
+      <p style="font-family:var(--mono);font-size:0.8rem;color:var(--text2);margin-top:-0.5rem;">A mix of Web3, AI and full-stack products shipped end-to-end.</p>
+    </div>
+    <div class="projects-grid">
+
+      <a href="https://arbius.ai/" target="_blank" rel="noopener" class="project-card reveal">
+        <div class="project-head"><div class="project-num">01</div><span class="project-tag web3">Web3 · AI</span></div>
+        <div class="project-name">Arbius</div>
+        <div class="project-year">2024 · arbius.ai · arbiusdata.ai · arbiusplayground.com</div>
+        <div class="project-desc">Decentralized network for machine learning with a Bitcoin-style fixed supply token. Designed and built three sub-products: the main site, an analytics platform, and an interactive AI playground for experimenting with on-chain models.</div>
+        <div class="project-stack"><span>Next.js</span><span>Solidity</span><span>ethers.js</span><span>Node</span><span>MongoDB</span><span>Django</span><span>IPFS</span><span>Arbitrum</span></div>
+        <div class="project-link">Visit project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="https://railcats.xyz/" target="_blank" rel="noopener" class="project-card reveal">
+        <div class="project-head"><div class="project-num">02</div><span class="project-tag web3">Web3 · NFT</span></div>
+        <div class="project-name">Railcats</div>
+        <div class="project-year">2024 · 7,788 ERC-721 NFTs · Railgun community</div>
+        <div class="project-desc">Built a one-of-a-kind NFT collection with an evolution mechanic — burn two NFTs to mint a new one with rerolled shared traits. Custom Solidity contracts, programmatic art/metadata generation, and IPFS storage at scale.</div>
+        <div class="project-stack"><span>Solidity</span><span>Next.js</span><span>Node.js</span><span>Python</span><span>IPFS</span><span>Ethereum</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="#" class="project-card reveal">
+        <div class="project-head"><div class="project-num">03</div><span class="project-tag ai">AI · SaaS</span></div>
+        <div class="project-name">Opentune</div>
+        <div class="project-year">2024 · Model-agnostic AI platform</div>
+        <div class="project-desc">Built from scratch — a model-agnostic AI platform supporting LLaMA, GPT and Claude. Users can upload datasets, fine-tune custom models, manage personalisation tags, run in-chat functions (web search, formatting), and export models.</div>
+        <div class="project-stack"><span>Next.js</span><span>Django</span><span>OpenAI</span><span>Anthropic</span><span>AWS</span><span>Nginx</span></div>
+        <div class="project-link">Case study <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="#" class="project-card reveal">
+        <div class="project-head"><div class="project-num">04</div><span class="project-tag web3">Web3 · Marketplace</span></div>
+        <div class="project-name">Ghostclub</div>
+        <div class="project-year">2021 · MUMBOT creative community</div>
+        <div class="project-desc">End-to-end NFT marketplace for an international artist collective. Built ERC-721 + ERC-1155 contracts, a marketplace contract with auctions, automated royalty splits, and integrated IPFS for decentralized asset storage.</div>
+        <div class="project-stack"><span>React</span><span>Node.js</span><span>MongoDB</span><span>Solidity</span><span>IPFS</span><span>Python</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="https://cryptopodz.com/" class="project-card reveal">
+        <div class="project-head"><div class="project-num">05</div><span class="project-tag web3">Web3 · NFT</span></div>
+        <div class="project-name">CryptoPodz</div>
+        <div class="project-year">2021 · 100 1/1 ERC-721s · Sold out in 30 min</div>
+        <div class="project-desc">A 3D digital-art dApp capturing crypto's history through a CJK artistic lens. Custom ERC-721 contract, IPFS-backed metadata, and a responsive minting site that sold out the entire collection in under thirty minutes.</div>
+        <div class="project-stack"><span>React.js</span><span>Web3.js</span><span>Solidity</span><span>IPFS</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="https://opensea.io/collection/artsiescollective" class="project-card reveal">
+        <div class="project-head"><div class="project-num">06</div><span class="project-tag web3">Web3 · NFT</span></div>
+        <div class="project-name">Artsies Collective</div>
+        <div class="project-year">2022 · 5,555 ERC-721 collection</div>
+        <div class="project-desc">A curated NFT collection of 5,555 unique digital artworks. Deployed the ERC-721 contract and built the minting website for seamless collector onboarding into the broader NFT marketplace ecosystem.</div>
+        <div class="project-stack"><span>React.js</span><span>Web3.js</span><span>Solidity</span><span>IPFS</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="https://houseitt.in/" target="_blank" rel="noopener" class="project-card reveal">
+        <div class="project-head"><div class="project-num">07</div><span class="project-tag">Web2 · Marketplace</span></div>
+        <div class="project-name">Houseitt</div>
+        <div class="project-year">2019 – 2020 · houseitt.in</div>
+        <div class="project-desc">Verified student housing marketplace. Led the technical team end-to-end and shipped a transparent platform that brought trust to the student accommodation search.</div>
+        <div class="project-stack"><span>Django</span><span>PostgreSQL</span><span>React</span><span>AWS</span></div>
+        <div class="project-link">houseitt.in <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="#" class="project-card reveal">
+        <div class="project-head"><div class="project-num">08</div><span class="project-tag">Web2 · Services</span></div>
+        <div class="project-name">ChangChuay</div>
+        <div class="project-year">2021 · Thailand home services</div>
+        <div class="project-desc">An Urban-Company-style platform for Thai users — one place for both home-construction services and on-demand professionals (plumbers, electricians, carpenters). Designed from scratch with a strong focus on local UX and search.</div>
+        <div class="project-stack"><span>React.js</span><span>Django</span><span>SQLite3</span><span>AWS</span><span>Nginx</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="https://www.kaufmeinticket.de/gb/" class="project-card reveal">
+        <div class="project-head"><div class="project-num">09</div><span class="project-tag">Web2 · Ticketing</span></div>
+        <div class="project-name">Kaufmeinticket</div>
+        <div class="project-year">2021 · Germany · Fan-to-fan tickets</div>
+        <div class="project-desc">Modernised a legacy PrestaShop ticketing platform with a full React redesign. Integrated secure payment APIs, kept compatibility with the existing PrestaShop backend, and deployed a scalable AWS setup.</div>
+        <div class="project-stack"><span>React.js</span><span>PrestaShop API</span><span>AWS</span><span>Nginx</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="https://elucidationtoday.com/" target="_blank" rel="noopener" class="project-card reveal">
+        <div class="project-head"><div class="project-num">10</div><span class="project-tag">Web2 · EdTech</span></div>
+        <div class="project-name">Elucidation Today</div>
+        <div class="project-year">elucidationtoday.com</div>
+        <div class="project-desc">Learning platform helping make India skilled, employable and entrepreneurial. Production-grade full-stack delivery serving learners across the country.</div>
+        <div class="project-stack"><span>Django</span><span>Vue.js</span><span>PostgreSQL</span><span>AWS</span></div>
+        <div class="project-link">elucidationtoday.com <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="#" target="_blank" rel="noopener" class="project-card reveal">
+        <div class="project-head"><div class="project-num">11</div><span class="project-tag">Web2 · ERP</span></div>
+        <div class="project-name">Schoolbells</div>
+        <div class="project-year">2020 · schoolbells.in</div>
+        <div class="project-desc">School ERP and student-teacher coordination app — real-time updates, shared APIs across web and mobile, plus a CMS for video lectures.</div>
+        <div class="project-stack"><span>Python</span><span>Common APIs</span><span>Web · Mobile</span></div>
+        <div class="project-link">schoolbells.in <span class="project-arrow">→</span></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="education" id="education">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Academia</div><h2 class="section-title">Education</h2></div>
+    <div class="edu-list">
+      <div class="edu-item reveal">
+        <div class="edu-icon">🎓</div>
+        <div><div class="edu-degree">M.Sc Computer Science</div><div class="edu-school">South Asian University</div><div class="edu-year">2017 – 2019</div></div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-icon">📚</div>
+        <div><div class="edu-degree">B.Sc Computer Science</div><div class="edu-school">Kirori Mal College, Delhi University</div><div class="edu-year">2014 – 2017</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="section-label">Let's Talk</div>
+    <h2 class="section-title">Say Hi! 👋</h2>
+    <p class="contact-sub">Have a project in mind — Web2, Web3 or AI? Reach out. I reply within 24 hours.</p>
+    <form class="contact-form" id="contact-form-id" name="submit-to-google-sheet" action=" " method="post">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">NAME</label><input id="namefield" name="Name" class="form-input" type="text" placeholder="Your name" required></div>
+        <div class="form-group"><label class="form-label">EMAIL</label><input id="email" name="Email" class="form-input" type="email" placeholder="you@example.com" required></div>
+      </div>
+      <div class="form-group"><label class="form-label">SUBJECT</label><input id="subject" name="Subject" class="form-input" type="text" placeholder="What's this about?" required></div>
+      <div class="form-group"><label class="form-label">MESSAGE</label><textarea id="message" name="Message" class="form-textarea" placeholder="Tell me about your project..." required></textarea></div>
+      <button type="submit" class="form-submit" id="submit">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy">Made with <span>♡</span> in India · Abhishek Munjal © 2026</div>
+  <div class="footer-links">
+    <a href="desktop_portfolio.html" target="_blank" rel="noopener">🖥 Desktop Mode</a>
+    <a href="mailto:munjalabhishek1996@gmail.com">munjalabhishek1996@gmail.com</a>
+    <a href="https://www.github.com/abhishekmunjal" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/abhishek-munjal" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+<script type="text/javascript" src="jquery-local.js"></script>
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;});
+(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animRing);})();
+
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:0.1});
+reveals.forEach(r=>io.observe(r));
+
+function toggleExp(header){
+  const card=header.closest('.exp-card'),isOpen=card.classList.contains('open');
+  document.querySelectorAll('.exp-card.open').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)card.classList.add('open');
 }
-</div>
-</section>
+</script>
 
-<section id="sec4" class="footer-section">
-<div class="panel-box">
-  <h2 class="say-hi">Say Hi!</h2>
-<div class="tab">
-  <button class="tablinks" onclick="switchTabs(event, 'tab1')"><span>Reach out&nbsp;</span><i class="fas fa-code"></i></button>
-  <button class="tablinks active" onclick="switchTabs(event, 'tab2')"><span>I don't know coding&nbsp;</span><i class="far fa-envelope"></i></button>
-  <!--button class="tablinks" onclick="switchTabs(event, 'tab3')"><span>What's all this hassle?</span><i class="fas fa-mobile-alt"></i></button-->
-</div>
-<div id="tab1" class="down-enter-active tabcontent code-formatted">
-  <code>
-    <pre>
-      <red><white>&lt;</white>form<green> action<quot>=""</quot> method<quot>="post"</quot><white>&gt;</white></green></red>
-        <red><white>&lt;</white>fieldset<white>&gt;</white></red>
-           <red><white>&lt;</white>div<white>&gt;</white></red>
-              <red><white>&lt;</white>label<white>&gt;</white><bl>Name</bl><white>&lt;</white>/label<white>&gt;</white></red>
-                <red><white>&lt;</white>div<white>&gt;</white></red>
-                    <red><white>&lt;</white>input <green>id<quot>="namefield"</quot> type<quot>="text"</quot> name<quot>="name"</quot> placeholder<quot>=""</quot> value<quot>="<input id="c-name" type="text" v-model="vName">"</quot> required<white>&gt;</white></green></red>
-                <red><white>&lt;</white>/div<white>&gt;</white></red>    
-          <red><white>&lt;</white>/div<white>&gt;</white></red>
-          <red><white>&lt;</white>div<white>&gt;</white></red>
-              <red><white>&lt;</white>label<white>&gt;</white><bl>Email</bl><white>&lt;</white>/label<white>&gt;</white></red>
-              <red><white>&lt;</white>div<white>&gt;</white></red>
-                <red><white>&lt;</white>input <green>type<quot>="email"</quot> name<quot>="email"</quot> id<quot>="email"</quot>  placeholder<quot>="example@mail.com"</quot> value<quot>="<input id="c-email" type="email" v-model="vEmail">"</quot> required<white>&gt;</white></green></red>
-              <red><white>&lt;</white>/div<white>&gt;</white></red>                  
-          <red><white>&lt;</white>/div<white>&gt;</white></red>
-          <red><white>&lt;</white>div<white>&gt;</white></red>
-              <red><white>&lt;</white>label<white>&gt;</white><bl>Subject</bl><white>&lt;</white>/label<white>&gt;</white></red>
-                <red><white>&lt;</white>div<white>&gt;</white></red>
-                    <red><white>&lt;</white>input <green>id<quot>="edu"</quot> type<quot>="text"</quot> name<quot>="subject"</quot> placeholder<quot>=""</quot>  value<quot>="<input id="c-subject" type="text" v-model="vSubject">"</quot> required<white>&gt;</white></green></red>
-                <red><white>&lt;</white>/div<white>&gt;</white></red>                    
-          <red><white>&lt;</white>/div<white>&gt;</white></red>
-          <red><white>&lt;</white>div<white>&gt;</white></red>
-              <red><white>&lt;</white>label<white>&gt;</white><bl>Message</bl><white>&lt;</white>/label<white>&gt;</white></red>
-                <red><white>&lt;</white>div<white>&gt;</white></red>
-                    <red><white>&lt;</white>textarea <green>id<quot>="q"</quot> placeholder<quot>="Type your message here"</quot> name<quot>="message"</quot> required<white>&gt;</white><textarea id="c-message" v-model="vMessage" ></textarea><white>&lt;</white>/textarea<white>&gt;</white></green></red>
-                <red><white>&lt;</white>/div<white>&gt;</white></red>
-          <red><white>&lt;</white>/div<white>&gt;</white></red>
-        <red><white>&lt;</white>/fieldset<white>&gt;</white></red>  
-        <red><white>&lt;</white>div<white>&gt;</white></red>
-            <red><white>&lt;</white>button <green>type<quot>="submit"</quot> id<quot>="submit"</quot><white>&gt;</white><bl>Submit</bl><white>&lt;</white>/button<white>&gt;</white></green></red>
-        <red><white>&lt;</white>/div<white>&gt;</white></red>
-      <red><white>&lt;</white>/form<white>&gt;</white></red>
-    </pre>
-  </code>
-  <div class="run-code">
-    <button onclick="$('#submit').click()">
-      <span id="faplay"><i class="fas fa-play"></i></span>
-      <span id="faspinner" style="display: none;"><i class="fas fa-spinner fa-pulse"></i></span>
-    </button>
-  </div>
-</div>
-
-<div id="tab2" class="down-enter-active tabcontent active contact-form">
-      <form id="contact-form-id" name="submit-to-google-sheet" action=" " method="post">
-        <fieldset>
-           <div class="field">
-              <label class="label">Name</label>
-                <div class="control">
-                    <input class="input" id="namefield" type="text" name="Name" placeholder="Full Name" :value="vName">
-                </div>                    
-         </div>
-         <div class="field">
-              <label class="label">Email</label>
-              <div class="control">
-                <input type="text" name="Email" id="email" class="input" placeholder="example@mail.com" :value="vEmail">
-              </div>                    
-            </div>
-        <div class="field">
-              <label class="label">Subject</label>
-                <div class="control">
-                    <input class="input" id="subject" type="text" name="Subject" placeholder="I want to ask about" :value="vSubject">
-                </div>                    
-         </div>
-         <div class="field">
-              <label class="label">Message</label>
-                <div class="control">
-                    <textarea id="message" class="textarea" placeholder="Type your message here" name="Message">{{ vMessage }}</textarea>
-                </div>
-          </div>
-        </fieldset>
-        <br>
-        <div class="field">
-          <div class="control">
-            <button class="submit-button" type="submit" id="submit">Submit</button>
-          </div>
-        </div>
-      </form>
-</div>
-<!--div id="tab3" class="tabcontent">
-  <h3></h3>
-  <p>Tokyo is the capital of Japan.</p>
-</div-->
-</div>
-<div class="footer-main main">
-  <div class="work-samples section">
-    <div class="title">
-      <span>Projects I have done so far</span>
-    </div>
-    <div class="lx-container-80">
-      <div class="lx-row">
-        <div class="lx-card carousel-container">
-          <div class="item fade">
-            <div class="image"><img src="images/houseitt.jpg"/></div>
-            <div class="text is-text-left">
-              <h4 class="title"> <a href="https://houseitt.in/" target="blank_">Houseitt&nbsp;<i class="fas fa-external-link-alt"></i></a></h4>
-              <p>Student Houseitt Platform</p>
-            </div>
-          </div>
-          <div class="item fade">
-            <div class="image"><img src="images/elucidationtoday.png"/></div>
-            <div class="text is-text-left">
-              <h4 class="title"><a href="https://elucidationtoday.com/" target="blank_">Elucidation Today&nbsp;<i class="fas fa-external-link-alt"></i></a></h4>
-              <p>Elucidation today is determined to make India skilled, employable and next entrepreneurs</p>
-            </div>
-          </div>
-          <div class="item fade">
-            <div class="image"><img src="images/schoolbells.jpg"/></div>
-            <div class="text is-text-centered">
-              <h4><a href="http://schoolbells.in/" target="blank_">Schoolbells&nbsp;<i class="fas fa-external-link-alt"></i></a></h4>
-              <p>School-Parent Communication App</p>
-            </div>
-          </div><a class="prev has-dflex-center"><i class="fas fa-angle-left"></i></a><a class="next has-dflex-center"><i class="fas fa-angle-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="copyright">Made with ♡ in India. Abhishek Munjal © 2021</div>
-  </div>
-</div>
-</section>
-
-<div class="scroll-down-container">
-  <a href="#sec2" id="next">
-    <div class="container-chev">
-      <div class="chevron"></div>
-      <div class="chevron"></div>
-      <div class="chevron"></div>
-    </div>
-  </a>
-</div>
-
-<!--div class="whatsapp-btn">
-  <a href="https://wa.me/" target="blank_">
-  	<img src="images/whatsapp_icon.png" class="whatsapp-icon">
-  </a>
-</div-->
-
-<div class="navigation-bar">
-  <div class="nav-row">
-    <div class="nav-column" onclick="scrollToSection('#sec1')"><i class="fas fa-home"></i></div>
-    <div class="nav-column" onclick="scrollToSection('#sec2')"><i class="fas fa-info-circle"></i></div>
-    <div class="nav-column" onclick="scrollToSection('#sec3')"><i class="fas fa-graduation-cap"></i></div>
-    <div class="nav-column" onclick="scrollToSection('#sec4')"><i class="fas fa-phone"></i></div>
-    <!--div class="nav-column" onclick="window.open('https://wa.me/')"><i class="fab fa-whatsapp"></i></div-->
-  </div>
-</div>
-</div>
-
-
-<div id="page_loader">
-</div>
-
-<!--div class="container">
-  <div class="interior">
-    <a class="btn" href="#open-modal">👋 Basic CSS-Only Modal</a>
-  </div>
-</div-->
-<div id="open-modal" class="modal-window">
-  <div>
-    <a href="#" title="Close" class="modal-close">Close</a>
-    <h1>Hoopla!</h1>
-    <div>Resources have found that this guy does not use social media</div>
-    <div><small>Check out</small></div>
-    <a href="https://elucidationtoday.com/" target="_blank">👉 Elucidation Today</div>
-    </div>
-</div>
-
-
-</body>
-<script type="text/javascript" src="static/js/jquery-1.11.3.min.js"> </script>
 <script type="text/javascript">
 
 const scriptURL = 'https://script.google.com/macros/s/AKfycbxC-MN4SQbojvLpR9wwYyzN2susGtYFtqs2P1PsIv_FLx_zT5U/exec'
@@ -549,6 +592,14 @@ function resetForm(){
   $("#submit").text("Submit");
   window.location.href = window.location.href;
 }
+
+// function handleSubmit(e){
+//   e.preventDefault();
+//   const btn=document.getElementById('submitBtn');
+//   btn.textContent='Sent! ✓';btn.style.background='#22c55e';
+//   setTimeout(()=>{btn.textContent='Send Message →';btn.style.background='';e.target.reset();},3000);
+// }
+
 
 $(function()
   {
@@ -588,50 +639,17 @@ $(function()
   });
 
 
-document.onreadystatechange = function () {
-  var state = document.readyState
-  if (state == 'interactive') {
-       document.getElementById('page_loader').style.visibility="visible";
-  } else if (state == 'complete') {
-      setTimeout(function(){
-         document.getElementById('page_loader').style.visibility="hidden";
-      },1000);
-  }
-}
+// document.onreadystatechange = function () {
+//   var state = document.readyState
+//   if (state == 'interactive') {
+//        document.getElementById('page_loader').style.visibility="visible";
+//   } else if (state == 'complete') {
+//       setTimeout(function(){
+//          document.getElementById('page_loader').style.visibility="hidden";
+//       },1000);
+//   }
+// }
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/vue-agile@0.3.7/dist/vue-agile.min.js"></script>
-<script src="https://unpkg.com/vue-agile"></script>
-<script src="https://unpkg.com/vue-typer/dist/vue-typer.min.js"></script>-->
-<script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script> 
-<script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-<script type="text/javascript" src="static/js/myown.js" ></script>
-<script>
- if (!navigator.serviceWorker.controller) {
-     navigator.serviceWorker.register("sw.js").then(function(reg) {
-         console.log("Service worker has been registered for scope: " + reg.scope);
-     });
- }
-/*Notification.requestPermission(result =>  {
-  console.log(result)
-  if (result === 'granted') {
-    alert('thanks for giving me permissions')
-  }
-});*/
-var alerted = localStorage.getItem('alerted') || '';
-if (alerted != 'yes') {
-Notification.requestPermission(result => {
-  if (result === 'granted') {
-    navigator.serviceWorker.ready.then(registration => {
-      registration.showNotification('Abhishek Munjal', {
-        body: 'Hey user! Thank you for coming here',
-        icon: 'pwa/icons/icon-192.png'
-      });
-    });
-  }
-});
- localStorage.setItem('alerted','yes');
-}
-</script>
+</body>
 </html>

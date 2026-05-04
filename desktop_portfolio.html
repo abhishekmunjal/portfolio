@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Munjal · Desktop Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#1e1e2e;--glass:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.15);
+  --text:#e0e0e0;--text2:#a0a0a0;--accent:#007aff;--red:#ff5f57;--yellow:#ffbd2e;--green:#28c840;
+}
+html,body{height:100%;overflow:hidden;font-family:'Inter',system-ui,-apple-system,sans-serif;}
+body{
+  background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  position:relative;
+}
+
+/* Wallpaper */
+.wallpaper{
+  position:fixed;inset:0;
+  /*background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23667eea"/><stop offset="100%" style="stop-color:%23764ba2"/></linearGradient></defs><rect width="1920" height="1080" fill="url(%23g)"/></svg>');*/
+  background: url('goku-bg.jpg');
+  background-size:cover;
+  background-position:center;
+  z-index:0;
+}
+.wallpaper::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 40%,rgba(255,255,255,0.15),transparent 50%),
+             radial-gradient(ellipse at 70% 60%,rgba(255,255,255,0.1),transparent 50%);
+}
+
+/* Menu bar */
+.menubar{
+  position:fixed;top:0;left:0;right:0;
+  height:28px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border-bottom:0.5px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;
+  padding:0 1rem;
+  z-index:1000;
+  font-size:13px;
+  color:var(--text);
+}
+.menubar-left{display:flex;gap:1.5rem;align-items:center;}
+.menubar-right{margin-left:auto;display:flex;gap:1rem;align-items:center;}
+.menu-item{cursor:pointer;font-weight:500;padding:0 0.5rem;transition:opacity 0.2s;}
+.menu-item:hover{opacity:0.7;}
+.apple-logo{font-size:18px;font-weight:600;}
+
+.menu-time{font-size:12px;font-weight:500;font-variant-numeric:tabular-nums;}
+.menu-icon{font-size:14px;cursor:pointer;padding:0 0.3rem;transition:opacity 0.2s;}
+.menu-icon:hover{opacity:0.7;}
+
+/* Desktop */
+.desktop{
+  position:fixed;
+  top:28px;bottom:80px;left:0;right:0;
+  padding:2rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,90px);
+  grid-auto-rows:100px;
+  gap:1rem;
+  align-content:start;
+  z-index:1;
+}
+
+.desktop-icon{
+  display:flex;flex-direction:column;
+  align-items:center;
+  gap:0.5rem;
+  cursor:pointer;
+  transition:all 0.2s;
+  padding:0.5rem;
+  border-radius:0.5rem;
+  text-decoration:none;
+}
+.desktop-icon:hover{background:rgba(255,255,255,0.1);}
+.desktop-icon:active{transform:scale(0.95);}
+.icon{
+  width:64px;height:64px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05));
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;
+  box-shadow:0 8px 16px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.3);
+  border:1px solid rgba(255,255,255,0.2);
+  position:relative;
+  overflow:hidden;
+}
+.icon::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.3) 0%,transparent 50%);
+}
+.icon-label{
+  color:white;
+  font-size:12px;
+  font-weight:500;
+  text-shadow:0 1px 3px rgba(0,0,0,0.8);
+  text-align:center;
+  line-height:1.2;
+  max-width:80px;
+}
+
+/* Special icon styles */
+.icon.terminal{background:linear-gradient(135deg,#2d2d2d,#1a1a1a);}
+.icon.finder{background:linear-gradient(135deg,#4a9eff,#0066cc);}
+.icon.about{background:linear-gradient(135deg,#f0f0f5,#d0d0d5);}
+.icon.safari{background:linear-gradient(135deg,#00aaff,#0088cc);}
+
+/* Window system */
+.window{
+  position:fixed;
+  background:rgba(30,30,46,0.95);
+  backdrop-filter:blur(80px) saturate(180%);
+  -webkit-backdrop-filter:blur(80px) saturate(180%);
+  border-radius:12px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 0.5px rgba(255,255,255,0.1);
+  display:none;
+  flex-direction:column;
+  z-index:100;
+  overflow:hidden;
+}
+.window.active{display:flex;}
+.window-titlebar{
+  height:40px;
+  background:rgba(255,255,255,0.05);
+  border-bottom:0.5px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;
+  padding:0 1rem;
+  cursor:move;
+  user-select:none;
+}
+.window-controls{display:flex;gap:0.5rem;}
+.window-btn{width:12px;height:12px;border-radius:50%;cursor:pointer;transition:transform 0.1s;}
+.window-btn:hover{transform:scale(1.1);}
+.btn-close{background:var(--red);}
+.btn-minimize{background:var(--yellow);}
+.btn-maximize{background:var(--green);}
+.window-title{
+  flex:1;text-align:center;
+  font-size:13px;font-weight:600;
+  color:var(--text2);
+}
+.window-content{
+  flex:1;
+  overflow:auto;
+  position:relative;
+}
+
+/* Terminal window specific */
+#terminalWindow{
+  width:90%;max-width:1200px;
+  height:80%;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+}
+#terminalWindow .window-content{
+  background:#0a0e14;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* About window */
+#aboutWindow{
+  width:600px;height:400px;
+  top:15%;left:50%;
+  transform:translateX(-50%);
+}
+.about-content{
+  padding:2rem;
+  color:var(--text);
+  line-height:1.8;
+}
+.about-content h2{margin-bottom:1rem;font-size:1.5rem;}
+.about-content p{margin-bottom:1rem;color:var(--text2);}
+
+/* Finder window */
+#finderWindow{
+  width:800px;height:500px;
+  top:10%;left:10%;
+}
+.finder-sidebar{
+  width:200px;
+  background:rgba(255,255,255,0.03);
+  border-right:0.5px solid rgba(255,255,255,0.1);
+  padding:1rem;
+}
+.finder-main{flex:1;padding:1.5rem;}
+.finder-container{display:flex;height:100%;}
+.sidebar-item{
+  padding:0.5rem;
+  margin:0.3rem 0;
+  border-radius:0.4rem;
+  font-size:13px;
+  color:var(--text2);
+  cursor:pointer;
+  transition:background 0.2s;
+}
+.sidebar-item:hover{background:rgba(255,255,255,0.1);}
+.sidebar-item.active{background:var(--accent);color:white;}
+.project-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:1rem;
+}
+.project-item{
+  padding:1rem;
+  background:rgba(255,255,255,0.05);
+  border-radius:0.5rem;
+  border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.2s;
+  cursor:pointer;
+  text-decoration:none;
+  color:var(--text);
+}
+.project-item:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px);}
+.project-icon{font-size:2rem;margin-bottom:0.5rem;}
+.project-name{font-size:13px;font-weight:600;margin-bottom:0.3rem;}
+.project-desc{font-size:11px;color:var(--text2);line-height:1.4;}
+
+/* Dock */
+.dock{
+  position:fixed;
+  bottom:0.5rem;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(40px) saturate(180%);
+  -webkit-backdrop-filter:blur(40px) saturate(180%);
+  border:0.5px solid rgba(255,255,255,0.2);
+  border-radius:16px;
+  padding:0.5rem;
+  display:flex;
+  gap:0.5rem;
+  align-items:end;
+  z-index:1001;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.dock-icon{
+  width:56px;height:56px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05));
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  transition:all 0.2s;
+  position:relative;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  border:1px solid rgba(255,255,255,0.2);
+}
+.dock-icon:hover{transform:translateY(-8px) scale(1.1);}
+.dock-icon:active{transform:translateY(-4px) scale(1.05);}
+.dock-icon.terminal{background:linear-gradient(135deg,#2d2d2d,#1a1a1a);}
+.dock-icon.finder{background:linear-gradient(135deg,#4a9eff,#0066cc);}
+.dock-icon.about{background:linear-gradient(135deg,#f0f0f5,#d0d0d5);}
+.dock-icon.safari{background:linear-gradient(135deg,#00aaff,#0088cc);}
+.dock-divider{width:1px;height:48px;background:rgba(255,255,255,0.2);margin:0 0.25rem;}
+
+/* Loading animation */
+@keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
+.window.active{animation:fadeIn 0.3s ease;}
+
+/* Dragging */
+.window.dragging{opacity:0.9;cursor:move;}
+
+@media(max-width:768px){
+  .desktop{grid-template-columns:repeat(4,70px);gap:0.8rem;padding:1rem;}
+  .dock{padding:0.3rem;gap:0.3rem;border-radius:12px;}
+  .dock-icon{width:48px;height:48px;font-size:24px;}
+  .menubar-left .menu-item{display:none;}
+  .menubar-left .menu-item:first-child{display:block;}
+  #terminalWindow,#finderWindow,#aboutWindow{width:95%;height:70%;}
+}
+</style>
+</head>
+<body>
+
+<!-- Wallpaper -->
+<div class="wallpaper"></div>
+
+<!-- Menu bar -->
+<div class="menubar">
+  <div class="menubar-left">
+    <div class="menu-item apple-logo"></div>
+    <div class="menu-item">Finder</div>
+    <div class="menu-item">File</div>
+    <div class="menu-item">Edit</div>
+    <div class="menu-item">View</div>
+    <div class="menu-item" style="color: #F0833A;">CURRENTLY IN TESTING PHASE</div>
+  </div>
+  <div class="menubar-right">
+    <div class="menu-icon">🔋</div>
+    <div class="menu-icon">📶</div>
+    <div class="menu-time" id="menuTime">12:00</div>
+  </div>
+</div>
+
+<!-- Desktop icons -->
+<div class="desktop">
+  <div class="desktop-icon" onclick="openWindow('terminalWindow')">
+    <div class="icon terminal">💻</div>
+    <div class="icon-label">Terminal</div>
+  </div>
+  <div class="desktop-icon" onclick="openWindow('finderWindow')">
+    <div class="icon finder">📁</div>
+    <div class="icon-label">Projects</div>
+  </div>
+  <div class="desktop-icon" onclick="openWindow('aboutWindow')">
+    <div class="icon about">ℹ️</div>
+    <div class="icon-label">About Me</div>
+  </div>
+  <div class="desktop-icon" onclick="window.open('https://github.com/abhishekmunjal','_blank')">
+    <div class="icon safari">🐙</div>
+    <div class="icon-label">GitHub</div>
+  </div>
+</div>
+
+<!-- Terminal Window -->
+<div class="window" id="terminalWindow">
+  <div class="window-titlebar">
+    <div class="window-controls">
+      <div class="window-btn btn-close" onclick="closeWindow('terminalWindow')"></div>
+      <div class="window-btn btn-minimize"></div>
+      <div class="window-btn btn-maximize"></div>
+    </div>
+    <div class="window-title">abhishek@portfolio — Portfolio</div>
+  </div>
+  <div class="window-content">
+    <iframe src="theme5_terminal.html" style="width:100%;height:100%;border:none;background:#0a0e14;"></iframe>
+  </div>
+</div>
+
+<!-- About Window -->
+<div class="window" id="aboutWindow">
+  <div class="window-titlebar">
+    <div class="window-controls">
+      <div class="window-btn btn-close" onclick="closeWindow('aboutWindow')"></div>
+      <div class="window-btn btn-minimize"></div>
+      <div class="window-btn btn-maximize"></div>
+    </div>
+    <div class="window-title">About Abhishek Munjal</div>
+  </div>
+  <div class="window-content">
+    <div class="about-content">
+      <h2>About Me</h2>
+      <p><strong>Name:</strong> Abhishek Munjal</p>
+      <p><strong>Role:</strong> Lead Developer @ Weboasis Labs (2020–Present)</p>
+      <p><strong>Focus:</strong> Web3 · Blockchain · Generative AI · Full-Stack</p>
+      <p><strong>Location:</strong> Delhi, India 🇮🇳</p>
+      <p><strong>Email:</strong> munjalabhishek1996@gmail.com</p>
+      <p><strong>Status:</strong> <span style="color:#28c840;">● Available for opportunities</span></p>
+      <br>
+      <p>I lead engineering at Weboasis Labs, shipping production Web3 dApps, AI-powered platforms, and full-stack products. Recent work spans Arbius Playground, Opentune, Railcats, and decentralised NFT mints across Ethereum, Polygon &amp; L2s.</p>
+      <p>Stack: <strong>Next.js, React, TypeScript, Node, Solidity, ethers.js, IPFS, AWS Lambda/Fargate, Docker, MongoDB, OpenAI &amp; Anthropic APIs.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Finder Window -->
+<div class="window" id="finderWindow">
+  <div class="window-titlebar">
+    <div class="window-controls">
+      <div class="window-btn btn-close" onclick="closeWindow('finderWindow')"></div>
+      <div class="window-btn btn-minimize"></div>
+      <div class="window-btn btn-maximize"></div>
+    </div>
+    <div class="window-title">Projects</div>
+  </div>
+  <div class="window-content">
+    <div class="finder-container">
+      <div class="finder-sidebar">
+        <div class="sidebar-item active">📂 All Projects</div>
+        <div class="sidebar-item">⛓️ Web3 / Blockchain</div>
+        <div class="sidebar-item">🤖 AI / GenAI</div>
+        <div class="sidebar-item">🌐 Web Apps</div>
+      </div>
+      <div class="finder-main">
+        <div class="project-grid">
+          <a href="https://playground.arbius.ai/" target="_blank" class="project-item">
+            <div class="project-icon">🧠</div>
+            <div class="project-name">Arbius Playground</div>
+            <div class="project-desc">Decentralised AI inference on-chain</div>
+          </a>
+          <a href="https://opentune.ai/" target="_blank" class="project-item">
+            <div class="project-icon">🎼</div>
+            <div class="project-name">Opentune</div>
+            <div class="project-desc">Make your own AI</div>
+          </a>
+          <a href="https://railcats.io/" target="_blank" class="project-item">
+            <div class="project-icon">🐱</div>
+            <div class="project-name">Railcats</div>
+            <div class="project-desc">Privacy NFTs on Railgun</div>
+          </a>
+          <a href="https://ghostclub.io/" target="_blank" class="project-item">
+            <div class="project-icon">👻</div>
+            <div class="project-name">Ghostclub</div>
+            <div class="project-desc">NFT marketplace</div>
+          </a>
+          <a href="https://cryptopodz.io/" target="_blank" class="project-item">
+            <div class="project-icon">🫛</div>
+            <div class="project-name">CryptoPodz</div>
+            <div class="project-desc">NFT Collection of 100 unique podz</div>
+          </a>
+          <a href="https://artsies.io/" target="_blank" class="project-item">
+            <div class="project-icon">🎨</div>
+            <div class="project-name">Artsies collective</div>
+            <div class="project-desc">Women Led Web3 Art community & NFTs</div>
+          </a>
+          <a href="https://changchuay.com/" target="_blank" class="project-item">
+            <div class="project-icon">🛒</div>
+            <div class="project-name">ChangChuay</div>
+            <div class="project-desc">Housing services provider (Thailand)</div>
+          </a>
+          <a href="https://kaufmeinticket.com/" target="_blank" class="project-item">
+            <div class="project-icon">🎟️</div>
+            <div class="project-name">Kaufmeinticket</div>
+            <div class="project-desc">Secondhand Ticket marketplace (DE)</div>
+          </a>
+          <a href="https://houseitt.in/" target="_blank" class="project-item">
+            <div class="project-icon">🏠</div>
+            <div class="project-name">Houseitt</div>
+            <div class="project-desc">Student housing platform</div>
+          </a>
+          <a href="https://elucidationtoday.com/" target="_blank" class="project-item">
+            <div class="project-icon">📚</div>
+            <div class="project-name">Elucidation Today</div>
+            <div class="project-desc">EdTech learning and recruiting platform</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dock -->
+<div class="dock">
+  <div class="dock-icon finder" onclick="openWindow('finderWindow')" title="Projects">📁</div>
+  <div class="dock-icon terminal" onclick="openWindow('terminalWindow')" title="Portfolio">💻</div>
+  <div class="dock-icon about" onclick="openWindow('aboutWindow')" title="About">ℹ️</div>
+  <div class="dock-divider"></div>
+  <div class="dock-icon safari" onclick="window.open('https://github.com/abhishekmunjal','_blank')" title="GitHub">🐙</div>
+</div>
+
+<script>
+// Update time
+function updateTime(){
+  const now=new Date();
+  const h=now.getHours();
+  const m=now.getMinutes().toString().padStart(2,'0');
+  const ampm=h>=12?'PM':'AM';
+  const h12=h%12||12;
+  document.getElementById('menuTime').textContent=`${h12}:${m} ${ampm}`;
+}
+updateTime();
+setInterval(updateTime,60000);
+
+// Window management
+let activeWindow=null;
+let isDragging=false;
+let currentX,currentY,initialX,initialY,xOffset=0,yOffset=0;
+
+function openWindow(id){
+  // Close other windows
+  document.querySelectorAll('.window').forEach(w=>w.classList.remove('active'));
+  // Open this window
+  const win=document.getElementById(id);
+  win.classList.add('active');
+  activeWindow=win;
+  
+  // Focus terminal if it's the terminal window
+  if(id==='terminalWindow'){
+    setTimeout(()=>{
+      const iframe=win.querySelector('iframe');
+      if(iframe&&iframe.contentWindow){
+        iframe.contentWindow.focus();
+      }
+    },100);
+  }
+}
+
+function closeWindow(id){
+  document.getElementById(id).classList.remove('active');
+}
+
+// Dragging windows
+document.querySelectorAll('.window-titlebar').forEach(titlebar=>{
+  titlebar.addEventListener('mousedown',dragStart);
+});
+
+function dragStart(e){
+  if(e.target.classList.contains('window-btn'))return;
+  
+  const win=e.target.closest('.window');
+  activeWindow=win;
+  
+  initialX=e.clientX-xOffset;
+  initialY=e.clientY-yOffset;
+  
+  if(e.target===e.currentTarget){
+    isDragging=true;
+    win.classList.add('dragging');
+  }
+}
+
+document.addEventListener('mousemove',drag);
+document.addEventListener('mouseup',dragEnd);
+
+function drag(e){
+  if(isDragging&&activeWindow){
+    e.preventDefault();
+    currentX=e.clientX-initialX;
+    currentY=e.clientY-initialY;
+    xOffset=currentX;
+    yOffset=currentY;
+    
+    setTranslate(currentX,currentY,activeWindow);
+  }
+}
+
+function setTranslate(xPos,yPos,el){
+  const rect=el.getBoundingClientRect();
+  const newLeft=rect.left+xPos;
+  const newTop=rect.top+yPos;
+  
+  el.style.left=newLeft+'px';
+  el.style.top=newTop+'px';
+  el.style.transform='none';
+}
+
+function dragEnd(){
+  if(activeWindow){
+    activeWindow.classList.remove('dragging');
+  }
+  initialX=currentX;
+  initialY=currentY;
+  isDragging=false;
+}
+
+// Auto-open terminal on load (optional)
+window.addEventListener('load',()=>{
+  setTimeout(()=>openWindow('terminalWindow'),500);
+});
+</script>
+</body>
+</html>

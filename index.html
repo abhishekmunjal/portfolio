@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<link rel="manifest" href="manifest.webmanifest">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120127335-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120127335-1');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abhishek Munjal — Lead Developer · Full Stack & Blockchain</title>
+<title>Abhishek Munjal · Full Stack Developer · Blockchain Developer</title>
 <meta name="description" content="Abhishek Munjal — Lead Developer at Weboasis Labs. Full Stack, Blockchain (Solidity, Web3, IPFS) and AI engineer based in Delhi, India.">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -92,6 +102,9 @@ section{padding:8rem 4rem;}
 .exp-title{font-size:1.1rem;font-weight:700;}
 .exp-company{font-family:var(--mono);font-size:0.8rem;color:var(--text2);}
 .exp-toggle{width:32px;height:32px;border-radius:50%;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;color:var(--green);font-size:1.1rem;line-height:1;}
+.exp-toggle span{
+  margin-top: -3px;
+}
 .exp-card.open .exp-toggle{background:var(--green);color:var(--bg);transform:rotate(45deg);}
 .exp-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows 0.4s ease;}
 .exp-card.open .exp-body{grid-template-rows:1fr;}
@@ -159,6 +172,10 @@ section{padding:8rem 4rem;}
 .form-submit{background:var(--green);color:var(--bg);border:none;padding:1rem 2.5rem;border-radius:0.5rem;font-family:var(--sans);font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.25s;align-self:center;margin-top:0.5rem;}
 .form-submit:hover{background:var(--green2);transform:scale(1.04);}
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #0f1f12 inset !important;
+  -webkit-text-fill-color: #FFF !important;
+}
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
@@ -170,6 +187,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
 .footer-links a{font-family:var(--mono);font-size:0.75rem;color:var(--text2);text-decoration:none;transition:color 0.2s;}
 .footer-links a:hover{color:var(--green);}
 
+@media(max-width:768px){
+  .footer-links{
+    flex-direction: column-reverse;
+  }
+}
 .section-inner{max-width:1200px;margin:0 auto;}
 
 @media(max-width:768px){
@@ -289,7 +311,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
       <div class="exp-card reveal">
         <div class="exp-header" onclick="toggleExp(this)">
           <div class="exp-header-left"><span class="exp-badge">Current Role · 2020 – Present</span><div class="exp-title">Lead Developer</div><div class="exp-company">Weboasis Labs · Remote, India</div></div>
-          <div class="exp-toggle">+</div>
+          <div class="exp-toggle"><span>+</span></div>
         </div>
         <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
           <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Deliver diverse client products end-to-end — <em>NFT platforms, DeFi tooling, AI chat platforms, ticketing, real-estate</em> — across Web2 and Web3.</p></div>
@@ -301,7 +323,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
       <div class="exp-card reveal">
         <div class="exp-header" onclick="toggleExp(this)">
           <div class="exp-header-left"><span class="exp-badge">2019 – 2020</span><div class="exp-title">Product Developer</div><div class="exp-company">Houseitt · Delhi, India</div></div>
-          <div class="exp-toggle">+</div>
+          <div class="exp-toggle"><span>+</span></div>
         </div>
         <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
           <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Students had <em>no reliable platform</em> for verified accommodation — listings unverified, process opaque.</p></div>
@@ -313,7 +335,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
       <div class="exp-card reveal">
         <div class="exp-header" onclick="toggleExp(this)">
           <div class="exp-header-left"><span class="exp-badge">Internship · Mar – Jun 2020</span><div class="exp-title">Product Developer</div><div class="exp-company">Whistlemind Technologies · Pune (Remote)</div></div>
-          <div class="exp-toggle">+</div>
+          <div class="exp-toggle"><span>+</span></div>
         </div>
         <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
           <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Schools needed an <em>ERP and content system</em> spanning web and mobile — with shared APIs and lecture management.</p></div>
@@ -325,7 +347,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
       <div class="exp-card reveal">
         <div class="exp-header" onclick="toggleExp(this)">
           <div class="exp-header-left"><span class="exp-badge">Internship · Jul – Aug 2020</span><div class="exp-title">Software Engineer</div><div class="exp-company">Rezo.ai · Remote</div></div>
-          <div class="exp-toggle">+</div>
+          <div class="exp-toggle"><span>+</span></div>
         </div>
         <div class="exp-body"><div class="exp-body-inner"><div class="exp-par">
           <div class="par-step"><span class="par-num">01</span><div class="par-label">Challenge</div><p class="par-text">Build and maintain <em>conversational bots</em> for enterprise clients with very different domains and workflows.</p></div>
@@ -532,13 +554,13 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
 </section>
 
 <footer>
-  <div class="footer-copy">Made with <span>♡</span> in India · Abhishek Munjal © 2026</div>
   <div class="footer-links">
     <a href="desktop_portfolio.html" target="_blank" rel="noopener">🖥 Desktop Mode</a>
     <a href="mailto:munjalabhishek1996@gmail.com">munjalabhishek1996@gmail.com</a>
     <a href="https://www.github.com/abhishekmunjal" target="_blank" rel="noopener">GitHub</a>
     <a href="https://www.linkedin.com/in/abhishek-munjal" target="_blank" rel="noopener">LinkedIn</a>
   </div>
+  <div class="footer-copy">Made with <span>♡</span> in India · Abhishek Munjal © 2026</div>
 </footer>
 
 <script type="text/javascript" src="jquery-local.js"></script>
@@ -561,7 +583,7 @@ function toggleExp(header){
 
 <script type="text/javascript">
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxC-MN4SQbojvLpR9wwYyzN2susGtYFtqs2P1PsIv_FLx_zT5U/exec'
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzu3NGB9WMMT5AyZBHVmRwWB-cvBbsc1yyAZZJr7uJanopa6Z3HD1ZJ_t10w3AVxNQd/exec'
 const form = document.forms['submit-to-google-sheet']
 
 function validateForm(){
@@ -588,7 +610,7 @@ function validateForm(){
 
 function resetForm(){
   $("form")[0].reset();
-  $("fieldset").removeAttr("disabled");
+  //$("fieldset").removeAttr("disabled");
   $("#submit").text("Submit");
   window.location.href = window.location.href;
 }
@@ -608,8 +630,8 @@ $(function()
           event.preventDefault();
           if (validateForm()){
           $("#submit").text("Wait");
-          $("#faspinner").show();
-          $("#faplay").hide();
+          //$("#faspinner").show();
+          //$("#faplay").hide();
           formdata = new FormData();
           formdata.append('Name',$('#namefield').val());
           formdata.append('Email',$('#email').val());
@@ -622,11 +644,11 @@ $(function()
               $('#c-email').val('');
               $('#c-subject').val('');
               $('#c-message').val('');
-              $("#faspinner").hide();
-              $("#faplay").show();
+              //$("#faspinner").hide();
+              //$("#faplay").show();
 
               $("#submit").text("Success");
-              $("fieldset").attr("disabled","disabled");  
+              //$("fieldset").attr("disabled","disabled");  
               setTimeout(resetForm, 2000);
             })
             .catch(error => {

@@ -126,6 +126,16 @@ section{padding:8rem 4rem;}
 .par-text{font-size:0.88rem;line-height:1.75;color:var(--text2);}
 .par-text em{font-style:normal;color:var(--text);font-weight:600;}
 
+.more-projects{max-width:1200px;margin:4rem auto 0;padding:2.5rem 2rem;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,rgba(0,255,136,0.03),rgba(0,0,0,0));}
+.more-projects-head{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1.75rem;}
+.more-projects-head h3{font-family:var(--mono);font-size:1.05rem;color:var(--text);margin:0;letter-spacing:.02em;}
+.more-projects-head h3::before{content:"$ ls ./also-shipped/";color:var(--accent);margin-right:.6rem;}
+.more-projects-head p{font-family:var(--mono);font-size:.78rem;color:var(--text2);margin:0;}
+.more-projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem .9rem;}
+.more-project{font-family:var(--mono);font-size:.85rem;color:var(--text);padding:.65rem .85rem;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,0.015);display:flex;align-items:center;gap:.6rem;transition:all .18s ease;}
+.more-project:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 16px -8px rgba(0,255,136,0.35);}
+.more-project .mp-dot{color:var(--accent);font-weight:700;}
+
 /* SKILLS */
 .skills-section{background:var(--bg2);}
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1200px;margin:3rem auto 0;}
@@ -156,7 +166,7 @@ section{padding:8rem 4rem;}
 .project-link{font-family:var(--mono);font-size:0.75rem;color:var(--gold);display:flex;align-items:center;gap:0.4rem;margin-top:auto;}
 .project-arrow{transition:transform 0.2s;}
 .project-card:hover .project-arrow{transform:translateX(4px);}
-
+.minor-projects{ font-size: 1.25rem; margin-top: 20px; }
 /* EDUCATION */
 .education{background:var(--bg2);}
 .edu-list{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1.5rem;}
@@ -455,7 +465,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
         <div class="project-year">2024 · Model-agnostic AI platform</div>
         <div class="project-desc">Built from scratch — a model-agnostic AI platform supporting LLaMA, GPT and Claude. Users can upload datasets, fine-tune custom models, manage personalisation tags, run in-chat functions (web search, formatting), and export models.</div>
         <div class="project-stack"><span>Next.js</span><span>Django</span><span>OpenAI</span><span>Anthropic</span><span>AWS</span><span>Nginx</span></div>
-        <div class="project-link">Case study <span class="project-arrow">→</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
       </a>
 
       <a href="#" class="project-card reveal">
@@ -467,7 +477,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
         <div class="project-link">View project <span class="project-arrow">→</span></div>
       </a>
 
-      <a href="https://cryptopodz.com/" class="project-card reveal">
+      <a href="https://cryptopodz.com/" class="project-card reveal" target="_blank">
         <div class="project-head"><div class="project-num">05</div><span class="project-tag web3">Web3 · NFT</span></div>
         <div class="project-name">CryptoPodz</div>
         <div class="project-year">2021 · 100 1/1 ERC-721s · Sold out in 30 min</div>
@@ -476,8 +486,17 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
         <div class="project-link">View project <span class="project-arrow">→</span></div>
       </a>
 
-      <a href="https://opensea.io/collection/artsiescollective" class="project-card reveal">
+      <a href="https://cryptopodz.com/battlepodz" class="project-card reveal" target="_blank">
         <div class="project-head"><div class="project-num">06</div><span class="project-tag web3">Web3 · NFT</span></div>
+        <div class="project-name">BattlePodz</div>
+        <div class="project-year">2022 · CryptoPodz Generation II, BattlePodz. 1/1 digital collectibles living on the Ethereum blockchain.</div>
+        <div class="project-desc">A 3D digital-art dApp capturing crypto's history through a CJK artistic lens. These digital collectibles are to be used in <span style="color: #FFF">Podz world</span>, a game designed and developed by CJK.</div>
+        <div class="project-stack"><span>React.js</span><span>Web3.js</span><span>Solidity</span><span>IPFS</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
+      </a>
+
+      <a href="https://opensea.io/collection/artsiescollective" class="project-card reveal" target="_blank">
+        <div class="project-head"><div class="project-num">07</div><span class="project-tag web3">Web3 · NFT</span></div>
         <div class="project-name">Artsies Collective</div>
         <div class="project-year">2022 · 5,555 ERC-721 collection</div>
         <div class="project-desc">A curated NFT collection of 5,555 unique digital artworks. Deployed the ERC-721 contract and built the minting website for seamless collector onboarding into the broader NFT marketplace ecosystem.</div>
@@ -486,16 +505,16 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
       </a>
 
       <a href="https://houseitt.in/" target="_blank" rel="noopener" class="project-card reveal">
-        <div class="project-head"><div class="project-num">07</div><span class="project-tag">Web2 · Marketplace</span></div>
+        <div class="project-head"><div class="project-num">08</div><span class="project-tag">Web2 · Marketplace</span></div>
         <div class="project-name">Houseitt</div>
         <div class="project-year">2019 – 2020 · houseitt.in</div>
         <div class="project-desc">Verified student housing marketplace. Led the technical team end-to-end and shipped a transparent platform that brought trust to the student accommodation search.</div>
         <div class="project-stack"><span>Django</span><span>PostgreSQL</span><span>React</span><span>AWS</span></div>
-        <div class="project-link">houseitt.in <span class="project-arrow">→</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
       </a>
 
       <a href="#" class="project-card reveal">
-        <div class="project-head"><div class="project-num">08</div><span class="project-tag">Web2 · Services</span></div>
+        <div class="project-head"><div class="project-num">09</div><span class="project-tag">Web2 · Services</span></div>
         <div class="project-name">ChangChuay</div>
         <div class="project-year">2021 · Thailand home services</div>
         <div class="project-desc">An Urban-Company-style platform for Thai users — one place for both home-construction services and on-demand professionals (plumbers, electricians, carpenters). Designed from scratch with a strong focus on local UX and search.</div>
@@ -503,8 +522,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
         <div class="project-link">View project <span class="project-arrow">→</span></div>
       </a>
 
-      <a href="https://www.kaufmeinticket.de/gb/" class="project-card reveal">
-        <div class="project-head"><div class="project-num">09</div><span class="project-tag">Web2 · Ticketing</span></div>
+      <a href="https://www.kaufmeinticket.de/gb/" class="project-card reveal" target="_blank">
+        <div class="project-head"><div class="project-num">10</div><span class="project-tag">Web2 · Ticketing</span></div>
         <div class="project-name">Kaufmeinticket</div>
         <div class="project-year">2021 · Germany · Fan-to-fan tickets</div>
         <div class="project-desc">Modernised a legacy PrestaShop ticketing platform with a full React redesign. Integrated secure payment APIs, kept compatibility with the existing PrestaShop backend, and deployed a scalable AWS setup.</div>
@@ -513,24 +532,53 @@ footer{border-top:1px solid var(--border);padding:2.5rem 4rem;display:flex;align
       </a>
 
       <a href="https://elucidationtoday.com/" target="_blank" rel="noopener" class="project-card reveal">
-        <div class="project-head"><div class="project-num">10</div><span class="project-tag">Web2 · EdTech</span></div>
+        <div class="project-head"><div class="project-num">11</div><span class="project-tag">Web2 · EdTech</span></div>
         <div class="project-name">Elucidation Today</div>
         <div class="project-year">elucidationtoday.com</div>
         <div class="project-desc">Learning platform helping make India skilled, employable and entrepreneurial. Production-grade full-stack delivery serving learners across the country.</div>
         <div class="project-stack"><span>Django</span><span>Vue.js</span><span>PostgreSQL</span><span>AWS</span></div>
-        <div class="project-link">elucidationtoday.com <span class="project-arrow">→</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
       </a>
 
       <a href="#" target="_blank" rel="noopener" class="project-card reveal">
-        <div class="project-head"><div class="project-num">11</div><span class="project-tag">Web2 · ERP</span></div>
+        <div class="project-head"><div class="project-num">12</div><span class="project-tag">Web2 · ERP</span></div>
         <div class="project-name">Schoolbells</div>
         <div class="project-year">2020 · schoolbells.in</div>
         <div class="project-desc">School ERP and student-teacher coordination app — real-time updates, shared APIs across web and mobile, plus a CMS for video lectures.</div>
         <div class="project-stack"><span>Python</span><span>Common APIs</span><span>Web · Mobile</span></div>
-        <div class="project-link">schoolbells.in <span class="project-arrow">→</span></div>
+        <div class="project-link">View project <span class="project-arrow">→</span></div>
       </a>
 
     </div>
+    <div class="more-projects reveal">
+      <div class="more-projects-head">
+        <h3>also-shipped</h3>
+        <p>// 20 smaller builds — experiments, client work & side quests</p>
+      </div>
+      <div class="more-projects-grid">
+        <div class="more-project"><span class="mp-dot">›</span>Bacchus App</div>
+        <div class="more-project"><span class="mp-dot">›</span>Past-Present-Future 2D Game</div>
+        <div class="more-project"><span class="mp-dot">›</span>Podzworld OTP service</div>
+        <div class="more-project"><span class="mp-dot">›</span>Line API middleware integration</div>
+        <div class="more-project"><span class="mp-dot">›</span>Hoeffding Tree Research Project</div>
+        <div class="more-project"><span class="mp-dot">›</span>SDN Research Project</div>
+        <div class="more-project"><span class="mp-dot">›</span>Crea App</div>
+        <div class="more-project"><span class="mp-dot">›</span>Opentune - Bot</div>
+        <div class="more-project"><span class="mp-dot">›</span>Opentune - Chrome extension</div>
+        <div class="more-project"><span class="mp-dot">›</span>ET - Recruitment</div>
+        <div class="more-project"><span class="mp-dot">›</span>Hypermind - KMS</div>
+        <div class="more-project"><span class="mp-dot">›</span>Allied Electricals Company Website</div>
+        <div class="more-project"><span class="mp-dot">›</span>Trip planner - truck drivers</div>
+        <div class="more-project"><span class="mp-dot">›</span>Bots via email, whatsapp and call</div>
+        <div class="more-project"><span class="mp-dot">›</span>Resume parser</div>
+        <div class="more-project"><span class="mp-dot">›</span>Image combining script</div>
+        <div class="more-project"><span class="mp-dot">›</span>IPFS data deployment script</div>
+        <div class="more-project"><span class="mp-dot">›</span>Data migration script</div>
+        <div class="more-project"><span class="mp-dot">›</span>Bulk email sending script</div>
+        <div class="more-project"><span class="mp-dot">›</span>and the website you are seeing ;)</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
